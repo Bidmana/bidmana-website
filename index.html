@@ -3,1044 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Bidmana modernizes government proposal operations through AI and expert consultation. Purpose-built for federal contractors." />
+  <title>Bidmana | The Ecosystem for Government Proposal Teams</title>
+  <meta name="description" content="Bidmana modernizes government proposal operations through AI and expert consultation. Opportunities, capture, proposals, market intelligence, teaming, and GovCon consultants in one platform." />
   <link rel="icon" type="image/png" href="favicon-mana.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --black:        #000000;
-      --black-mid:    #0a0a0a;
-      --black-card:   #0f0f0f;
-      --black-border: #1c1c1c;
-      --teal:         #00B8CC;
-      --teal-light:   #33CCDD;
-      --teal-dim:     #00A8BA;
-      --teal-glow:    rgba(0,184,204,0.10);
-      --gold:         #C8A56E;
-      --gold-light:   #E2C99A;
-      --gold-muted:   #7A6040;
-      --text-primary: #FFFFFF;
-      --text-secondary: #F0C97A;
-      --text-muted:   #C8A56E;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--black);
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 5%;
-      height: 68px;
-      background: rgba(0,0,0,0.90);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(0,184,204,0.12);
-    }
-
-    .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.6rem;
-      color: var(--text-primary);
-      text-decoration: none;
-      letter-spacing: 0.02em;
-    }
-
-    .nav-logo:hover { color: var(--teal); transition: color 0.2s; }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 400;
-      letter-spacing: 0.03em;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--text-primary); }
-
-    .nav-cta {
-      background: var(--teal) !important;
-      color: #000 !important;
-      padding: 0.5rem 1.25rem;
-      border-radius: 4px;
-      font-weight: 600 !important;
-      font-size: 0.8rem !important;
-      letter-spacing: 0.06em !important;
-      text-transform: uppercase;
-      transition: background 0.2s !important;
-    }
-
-    .nav-cta:hover { background: var(--teal-light) !important; color: #000 !important; }
-
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      width: 32px;
-      height: 32px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 101;
-      padding: 0;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 100%;
-      height: 2px;
-      background: var(--text-primary);
-      transition: transform 0.25s ease, opacity 0.2s ease;
-    }
-
-    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 120px 5% 90px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -15%;
-      right: -5%;
-      width: 65vw;
-      height: 65vw;
-      background: radial-gradient(ellipse at center, rgba(0,184,204,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -10%;
-      left: -5%;
-      width: 45vw;
-      height: 45vw;
-      background: radial-gradient(ellipse at center, rgba(200,165,110,0.05) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .hero-logo {
-      margin-bottom: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .hero-logo img {
-      height: 200px;
-      width: auto;
-      mix-blend-mode: screen;
-    }
-
-    .hero-logo .hero-wordmark {
-      font-family: 'DM Serif Display', serif;
-      font-size: 4.5rem;
-      letter-spacing: 0.02em;
-    }
-
-    .hero-logo .hero-wordmark .wm-bid { color: var(--text-primary); }
-    .hero-logo .hero-wordmark .wm-mana { color: var(--teal); }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 1.75rem;
-    }
-
-    .hero-eyebrow::before {
-      display: none;
-    }
-
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.75rem, 5.5vw, 5rem);
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      max-width: 820px;
-      margin: 0 auto 1.5rem;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--teal);
-    }
-
-    .hero-sub {
-      font-size: clamp(1rem, 1.4vw, 1.15rem);
-      color: var(--text-secondary);
-      max-width: 580px;
-      margin: 0 auto 3rem;
-      font-weight: 300;
-      line-height: 1.8;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: var(--teal);
-      color: #000;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 0.875rem 2.25rem;
-      border-radius: 4px;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-      font-weight: 400;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .btn-ghost:hover { color: var(--text-primary); }
-    .btn-ghost svg { transition: transform 0.2s; }
-    .btn-ghost:hover svg { transform: translateX(3px); }
-
-    /* ── DIVIDER ── */
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--black-border) 30%, var(--black-border) 70%, transparent);
-    }
-
-    /* ── SECTIONS ── */
-    section { padding: 100px 5%; }
-
-    .section-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--teal-dim);
-      margin-bottom: 1.25rem;
-    }
-
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 3.5vw, 3.25rem);
-      line-height: 1.15;
-      max-width: 680px;
-      margin-bottom: 1.5rem;
-    }
-
-    .section-title em {
-      font-style: italic;
-      color: var(--teal);
-    }
-
-    .section-body {
-      font-size: 1.05rem;
-      color: var(--text-secondary);
-      max-width: 580px;
-      line-height: 1.8;
-      font-weight: 300;
-    }
-
-    /* ── PROBLEM ── */
-    .problem { background: var(--black-mid); }
-
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      margin-top: 4rem;
-    }
-
-    .problem-items {
-      display: flex;
-      flex-direction: column;
-      gap: 2.25rem;
-    }
-
-    .problem-item {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
-
-    .problem-icon {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
-      border-radius: 8px;
-      background: rgba(0,184,204,0.07);
-      border: 1px solid rgba(0,184,204,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .problem-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke: var(--teal-dim);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .problem-item h4 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      line-height: 1.35;
-      color: var(--text-primary);
-    }
-
-    .problem-item p {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      font-weight: 300;
-    }
-
-    .problem-stat-block {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .stat-card {
-      background: var(--black-card);
-      border: 1px solid var(--black-border);
-      border-radius: 8px;
-      padding: 1.75rem 2rem;
-      border-left: 2px solid var(--teal-dim);
-    }
-
-    .stat-card .stat-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 3.25rem;
-      color: var(--teal);
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-card .stat-label {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      letter-spacing: 0.04em;
-      font-weight: 300;
-    }
-
-    /* ── SOLUTION ── */
-    .solution-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px;
-      margin-top: 4rem;
-      border: 1.5px solid var(--black-border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .sol-card {
-      background: var(--black-card);
-      padding: 2.25rem 2rem;
-      border-right: 1.5px solid var(--black-border);
-      transition: background 0.25s;
-    }
-
-    .sol-card:last-child { border-right: none; }
-    .sol-card:hover { background: #141414; }
-
-    .sol-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.5rem;
-      color: rgba(0,184,204,0.65);
-      margin-bottom: 1.25rem;
-      line-height: 1;
-    }
-
-    .sol-card h3 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      color: var(--text-primary);
-    }
-
-    .sol-card p {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    /* ── CONSULTANT SECTION ── */
-    .consultant {
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .consultant::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(ellipse, rgba(0,184,204,0.06) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .consultant-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      position: relative;
-    }
-
-    .consultant-stages {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .consultant-stages::before {
-      content: '';
-      position: absolute;
-      top: 6px;
-      bottom: 6px;
-      left: 5px;
-      width: 1px;
-      background: var(--black-border);
-    }
-
-    .consultant-stage {
-      position: relative;
-      display: flex;
-      gap: 1.1rem;
-      padding: 1.1rem 1rem;
-      margin: 0 -1rem;
-      border-radius: 8px;
-      cursor: default;
-      transition: background-color 0.25s;
-    }
-
-    .consultant-stage:first-child { padding-top: 0; }
-    .consultant-stage:last-child { padding-bottom: 0; }
-
-    .consultant-stage:hover { background: var(--black-card); }
-
-    .consultant-stage-dot {
-      flex: none;
-      width: 10px;
-      height: 10px;
-      margin-top: 4px;
-      border-radius: 50%;
-      background: var(--teal);
-      box-shadow: 0 0 8px rgba(0,184,204,0.55);
-      position: relative;
-      z-index: 1;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-
-    .consultant-stage:hover .consultant-stage-dot {
-      transform: scale(1.35);
-      box-shadow: 0 0 12px rgba(0,184,204,0.9);
-    }
-
-    .consultant-stage-text {
-      transition: transform 0.25s;
-    }
-
-    .consultant-stage:hover .consultant-stage-text { transform: translateX(4px); }
-
-    .consultant-stage h4 {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.3rem;
-      transition: color 0.25s;
-    }
-
-    .consultant-stage:hover h4 { color: var(--teal); }
-
-    .consultant-stage p {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* ── ADVANTAGE ── */
-    .advantage { background: var(--black-mid); }
-
-    .advantage-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .moat-list {
-      list-style: none;
-      margin-top: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .moat-list li {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.25rem 0;
-      border-bottom: 1px solid var(--black-border);
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      font-weight: 300;
-      transition: color 0.2s;
-    }
-
-    .moat-list li:first-child { border-top: 1px solid var(--black-border); }
-    .moat-list li:hover { color: var(--text-primary); }
-
-    .moat-dot {
-      width: 6px;
-      height: 6px;
-      min-width: 6px;
-      border-radius: 50%;
-      background: var(--teal);
-      box-shadow: 0 0 6px rgba(0,184,204,0.5);
-    }
-
-    .why-now-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 0;
-    }
-
-    .why-card {
-      background: var(--black-card);
-      border: 1px solid var(--black-border);
-      border-radius: 8px;
-      padding: 1.75rem;
-      transition: border-color 0.25s;
-    }
-
-    .why-card:hover { border-color: rgba(0,184,204,0.25); }
-
-    .why-card h4 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .why-card p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* ── VISION BAND ── */
-    .vision-band {
-      background: var(--black-card);
-      border-top: 1px solid var(--black-border);
-      border-bottom: 1px solid var(--black-border);
-      padding: 80px 5%;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .vision-band::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(ellipse, rgba(0,184,204,0.06) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .vision-band .section-label { justify-content: center; display: flex; }
-
-    .vision-quote {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 3.75rem);
-      line-height: 1.15;
-      max-width: 900px;
-      margin: 0 auto;
-      color: var(--text-primary);
-      position: relative;
-    }
-
-    .vision-quote em { color: var(--teal); font-style: italic; }
-
-    /* ── CTA ── */
-    .cta-section {
-      text-align: center;
-      padding: 120px 5%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(ellipse, rgba(0,184,204,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .cta-section .section-title { margin: 0 auto 1.25rem; text-align: center; }
-    .cta-section .section-body  { margin: 0 auto 2.5rem; text-align: center; }
-
-    .cta-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--black-border);
-      padding: 2.5rem 5%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--black-mid);
-    }
-
-    .footer-logo img {
-      height: 32px;
-      width: auto;
-      opacity: 0.7;
-    }
-
-    .footer-copy {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .anim { opacity: 0; }
-    .anim.visible { animation: fadeUp 0.7s ease forwards; }
-
-    /* ── BIDMANA LINK ── */
-    .blink-section {
-      background: var(--black-mid);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .blink-section::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      right: -10%;
-      transform: translateY(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(ellipse, rgba(0,184,204,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .blink-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      position: relative;
-    }
-
-    .blink-feature-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .blink-feature {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      padding: 1.25rem;
-      background: var(--black-card);
-      border: 1px solid var(--black-border);
-      border-radius: 8px;
-      transition: border-color 0.25s;
-    }
-
-    .blink-feature:hover { border-color: rgba(0,184,204,0.25); }
-
-    .blink-feature-icon {
-      width: 32px;
-      height: 32px;
-      min-width: 32px;
-      border-radius: 6px;
-      background: var(--teal-glow);
-      border: 1px solid rgba(0,184,204,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 1px;
-    }
-
-    .blink-feature-icon svg {
-      width: 15px;
-      height: 15px;
-      stroke: var(--teal);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .blink-feature h4 {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.25rem;
-    }
-
-    .blink-feature p {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* ── AI INTELLIGENCE ── */
-    .intelligence {
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .intelligence::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(ellipse at 30% 50%, rgba(0,184,204,0.05) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .intel-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 3.5rem;
-      position: relative;
-    }
-
-    .intel-card {
-      background: var(--black-card);
-      border: 1px solid var(--black-border);
-      border-radius: 10px;
-      padding: 2rem;
-      transition: border-color 0.25s, transform 0.2s;
-    }
-
-    .intel-card:hover {
-      border-color: rgba(0,184,204,0.3);
-      transform: translateY(-2px);
-    }
-
-    .intel-card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: var(--teal-glow);
-      border: 1px solid rgba(0,184,204,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.25rem;
-    }
-
-    .intel-card-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--teal);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .intel-card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.6rem;
-      line-height: 1.3;
-    }
-
-    .intel-card p {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    /* ── TEAM ── */
-    .team {
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .team::before {
-      content: '';
-      position: absolute;
-      top: -10%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60vw;
-      height: 60vw;
-      background: radial-gradient(ellipse at center, rgba(0,184,204,0.05) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .team-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      margin-top: 4rem;
-      position: relative;
-    }
-
-    .team-card {
-      background: var(--black-card);
-      border: 1px solid var(--black-border);
-      border-radius: 10px;
-      padding: 2.5rem;
-      transition: border-color 0.25s;
-    }
-
-    .team-card:hover { border-color: rgba(0,184,204,0.3); }
-
-    .team-photo {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(0,184,204,0.3);
-      margin-bottom: 1.5rem;
-    }
-
-    .team-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
-      color: var(--text-primary);
-      margin-bottom: 0.35rem;
-    }
-
-    .team-role {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 1.25rem;
-    }
-
-    .team-card p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      font-weight: 300;
-      margin-bottom: 1rem;
-    }
-
-    .team-card p:last-child { margin-bottom: 0; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .problem-grid,
-      .advantage-inner,
-      .consultant-inner,
-      .blink-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .intel-grid { grid-template-columns: 1fr; }
-      .solution-grid { grid-template-columns: 1fr; }
-      .team-grid { grid-template-columns: 1fr; }
-      .sol-card { border-right: none; border-bottom: 1.5px solid var(--black-border); }
-      .sol-card:last-child { border-bottom: none; }
-      .nav-toggle { display: flex; }
-      .nav-links {
-        position: fixed;
-        top: 68px;
-        right: 0;
-        width: min(78vw, 320px);
-        height: calc(100vh - 68px);
-        margin: 0;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-        padding: 1.5rem;
-        background: rgba(0,0,0,0.98);
-        backdrop-filter: blur(14px);
-        border-left: 1px solid rgba(0,184,204,0.12);
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-      }
-      .nav-links.open { transform: translateX(0); }
-      .nav-links li { width: 100%; }
-      .nav-links a { display: block; padding: 0.9rem 0; }
-      .nav-links li:not(:last-child) a { border-bottom: 1px solid var(--black-border); }
-      .nav-links .nav-cta { display: inline-block; margin-top: 1rem; text-align: center; }
-    }
-
-    @media (max-width: 600px) {
-      .why-now-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── Email menu (Gmail / Outlook Web / default app fallback) ── */
-    /* Fixed + centered in the viewport (not anchored to the button) so it can
-       never be clipped, regardless of scroll position, page length, or screen size. */
-    .email-menu-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 199;
-      background: rgba(0,0,0,0.55);
-      opacity: 0;
-      transition: opacity 0.15s ease;
-    }
-    .email-menu-backdrop.open { opacity: 1; }
-    .email-menu {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -48%);
-      z-index: 200;
-      width: min(320px, calc(100vw - 32px));
-      background: var(--black-card);
-      border: 1px solid rgba(0,184,204,0.25);
-      border-radius: 10px;
-      padding: 0.4rem;
-      box-shadow: 0 20px 48px rgba(0,0,0,0.6);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      max-height: calc(100vh - 48px);
-      overflow-y: auto;
-      opacity: 0;
-      transition: opacity 0.15s ease, transform 0.15s ease;
-    }
-    .email-menu.open { opacity: 1; transform: translate(-50%, -50%); }
-    .email-menu a,
-    .email-menu button {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      width: 100%;
-      padding: 0.6rem 0.75rem;
-      border-radius: 6px;
-      background: none;
-      border: none;
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.9rem;
-      text-align: left;
-      cursor: pointer;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-    .email-menu a:hover,
-    .email-menu button:hover { background: var(--teal-glow); color: var(--teal-light); }
-    .email-menu .email-menu-label {
-      padding: 0.4rem 0.75rem 0.2rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .email-menu-divider { height: 1px; background: var(--black-border); margin: 4px 2px; }
-  </style>
+  <link rel="stylesheet" href="assets/site.css" />
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">Bidmana</a>
+    <a href="index.html" class="nav-logo">Bidmana</a>
     <ul class="nav-links">
-      <li><a href="#problem">The Problem</a></li>
-      <li><a href="#solution">Solution</a></li>
-      <li><a href="#consultants">Consultants</a></li>
-      <li><a href="#link">Bidmana Link</a></li>
-      <li><a href="#advantage">Why Us</a></li>
-      <li><a href="#team">Team</a></li>
+      <li><a href="platform.html">Platform</a></li>
+      <li><a href="intelligence.html">Intelligence</a></li>
+      <li><a href="consultants.html">Consultants</a></li>
+      <li><a href="link.html">Bidmana Link</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="mailto:contact_us@bidmana.com" class="nav-cta mailto-cta">Request Demo</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -1058,10 +39,13 @@
     </div>
     <h1 class="anim" style="animation-delay:0.08s">The Ecosystem for<br /><em>Government Proposal Teams</em></h1>
     <p class="hero-sub anim" style="animation-delay:0.16s">
-      Win more proposals with AI-powered workflows and guidance from experienced GovCon professionals, all in one platform.
+      Find the right opportunities, build grounded proposals, understand your market, and bring in experienced GovCon professionals when you need them. All in one platform.
     </p>
     <div class="hero-actions anim" style="animation-delay:0.24s">
       <a href="mailto:contact_us@bidmana.com" class="btn-primary mailto-cta">Request a Demo</a>
+      <a href="platform.html" class="btn-ghost">Explore the platform
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
   </section>
 
@@ -1083,41 +67,31 @@
           <div class="problem-icon">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
           </div>
-          <div>
-            <h4>Searching old proposals</h4>
-          </div>
+          <div><h4>Searching old proposals</h4></div>
         </div>
         <div class="problem-item anim" style="animation-delay:0.08s">
           <div class="problem-icon">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
           </div>
-          <div>
-            <h4>Rebuilding compliance matrices</h4>
-          </div>
+          <div><h4>Rebuilding compliance matrices</h4></div>
         </div>
         <div class="problem-item anim" style="animation-delay:0.16s">
           <div class="problem-icon">
             <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
-          <div>
-            <h4>Chasing SMEs</h4>
-          </div>
+          <div><h4>Chasing SMEs</h4></div>
         </div>
         <div class="problem-item anim" style="animation-delay:0.24s">
           <div class="problem-icon">
             <svg viewBox="0 0 24 24"><path d="M8 2h8l4 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M14 2v5h5"/></svg>
           </div>
-          <div>
-            <h4>Managing disconnected Word, Excel &amp; SharePoint files</h4>
-          </div>
+          <div><h4>Managing disconnected Word, Excel &amp; SharePoint files</h4></div>
         </div>
         <div class="problem-item anim" style="animation-delay:0.32s">
           <div class="problem-icon">
             <svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.75V17h8v-2.25A7 7 0 0 0 12 2z"/></svg>
           </div>
-          <div>
-            <h4>Losing institutional knowledge</h4>
-          </div>
+          <div><h4>Losing institutional knowledge</h4></div>
         </div>
       </div>
       <div class="problem-stat-block anim" style="animation-delay:0.1s">
@@ -1135,197 +109,96 @@
 
   <div class="divider"></div>
 
-  <!-- SOLUTION -->
+  <!-- WHAT'S INSIDE -->
   <section id="solution">
     <div class="section-label">The Solution</div>
-    <h2 class="section-title anim">The Ecosystem for <em>government proposal teams</em></h2>
+    <h2 class="section-title anim">One platform from <em>first signal to submission</em></h2>
     <p class="section-body anim" style="animation-delay:0.1s">
-      Win more proposals with AI-powered workflows and guidance from experienced GovCon professionals, all in one platform.
+      Bidmana replaces the patchwork of search portals, spreadsheets, shared drives, and outside help with a single workspace built for how government pursuits actually run.
     </p>
     <div class="solution-grid anim" style="animation-delay:0.15s">
-      <div class="sol-card">
+      <a class="sol-card" href="platform.html#opportunities">
         <div class="sol-num">01</div>
-        <h3>Capture Intelligence</h3>
-        <p>AI powered pursuit analysis that helps your team make faster, more confident decisions backed by data, not gut instinct.</p>
-      </div>
-      <div class="sol-card">
+        <h3>Opportunities</h3>
+        <p>Federal notices from SAM.gov, state and local bids from all 50 states and DC, and SBIR/STTR topics, matched to your NAICS codes, set-asides, and capabilities.</p>
+        <span class="sol-more">See how it works →</span>
+      </a>
+      <a class="sol-card" href="platform.html#capture">
         <div class="sol-num">02</div>
-        <h3>Proposal Operations</h3>
-        <p>Integrated workflow infrastructure replacing disconnected tools with a unified operational layer built for the full proposal lifecycle.</p>
-      </div>
-      <div class="sol-card">
+        <h3>Pipeline &amp; Capture</h3>
+        <p>Track every pursuit with roles, contacts, amendment impacts, price-to-win analysis, win strategy, and a calendar tied to your Outlook or Google account.</p>
+        <span class="sol-more">See how it works →</span>
+      </a>
+      <a class="sol-card" href="platform.html#proposals">
         <div class="sol-num">03</div>
-        <h3>Expert Consultation</h3>
-        <p>On-demand access to Bidmana consultants embedded directly into your workflows, guiding you from capture through submission every step of the way.</p>
-      </div>
-      <div class="sol-card">
+        <h3>Proposal Workspace</h3>
+        <p>Shred the RFP, build the compliance matrix, and draft sections grounded in your own past performance with a citation behind every claim.</p>
+        <span class="sol-more">See how it works →</span>
+      </a>
+      <a class="sol-card" href="intelligence.html">
         <div class="sol-num">04</div>
-        <h3>Institutional Knowledge</h3>
-        <p>A living knowledge system that captures, organizes, and applies your organization's proposal history so nothing is ever lost.</p>
-      </div>
-      <div class="sol-card">
+        <h3>Market Intelligence</h3>
+        <p>Recompete radar, emerging competitors, competitor landscape briefs, award history, and calibrated win probability before you commit resources.</p>
+        <span class="sol-more">Explore intelligence →</span>
+      </a>
+      <a class="sol-card" href="consultants.html">
         <div class="sol-num">05</div>
-        <h3>Pursuit Decisions</h3>
-        <p>Data-driven frameworks that quantify opportunity risk, resource requirements, and win probability before you commit.</p>
-      </div>
-      <div class="sol-card">
+        <h3>Expert Consultants</h3>
+        <p>Experienced GovCon professionals you can engage inside the platform, from capture planning through color reviews, with hours and invoices handled for you.</p>
+        <span class="sol-more">Meet the consultants →</span>
+      </a>
+      <a class="sol-card" href="link.html">
         <div class="sol-num">06</div>
-        <h3>Sticky Data Systems</h3>
-        <p>Proposal data that compounds in value over time. Every win, loss, and lesson learned feeds back into smarter future decisions.</p>
-      </div>
+        <h3>Bidmana Link</h3>
+        <p>Find teaming partners by capability, NAICS code, and certification, then engage them without leaving the pursuit you are working.</p>
+        <span class="sol-more">Find partners →</span>
+      </a>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- CONSULTANT SECTION -->
-  <section class="consultant" id="consultants">
-    <div class="consultant-inner">
-      <div>
-        <div class="section-label">Bidmana Consultants</div>
-        <h2 class="section-title anim">Expert guidance <em>every step</em> of the way</h2>
-        <p class="section-body anim" style="animation-delay:0.1s">
-          Bidmana isn't just software, it's a service. Bidmana combines AI automation with experienced GovCon professionals throughout the proposal lifecycle. AI when you need speed. Experts when you need confidence. Technology accelerates the work. Expertise improves the outcome.
-        </p>
-        <p class="section-body anim" style="animation-delay:0.18s; margin-top: 1.25rem;">
-          Bidmana combines AI-powered proposal operations with experienced GovCon professionals who can step in whenever your team needs additional support. From early business development to final proposal submission, experts are embedded directly into your workflow, not brought in after the fact.
-        </p>
-        <p class="section-body anim" style="animation-delay:0.26s; margin-top: 1.25rem;">
-          No matter the task or help needed, Bidmana gives you access to trusted professionals who work alongside your team inside the platform.
-        </p>
-      </div>
-      <div class="consultant-stages anim" style="animation-delay:0.2s">
-        <div class="consultant-stage">
-          <span class="consultant-stage-dot"></span>
-          <div class="consultant-stage-text">
-            <h4>Business Development</h4>
-            <p>Pipeline building and opportunity qualification before a solicitation drops</p>
-          </div>
-        </div>
-        <div class="consultant-stage">
-          <span class="consultant-stage-dot"></span>
-          <div class="consultant-stage-text">
-            <h4>Capture Planning</h4>
-            <p>Bid or no bid strategy and early positioning</p>
-          </div>
-        </div>
-        <div class="consultant-stage">
-          <span class="consultant-stage-dot"></span>
-          <div class="consultant-stage-text">
-            <h4>Proposal Development</h4>
-            <p>Technical and management volume writing</p>
-          </div>
-        </div>
-        <div class="consultant-stage">
-          <span class="consultant-stage-dot"></span>
-          <div class="consultant-stage-text">
-            <h4>Compliance &amp; Color Reviews</h4>
-            <p>Structured reviews before it leaves your hands</p>
-          </div>
-        </div>
-        <div class="consultant-stage">
-          <span class="consultant-stage-dot"></span>
-          <div class="consultant-stage-text">
-            <h4>Pricing &amp; Submission</h4>
-            <p>Price to win support through final delivery</p>
-          </div>
-        </div>
-        <div class="consultant-stage">
-          <span class="consultant-stage-dot"></span>
-          <div class="consultant-stage-text">
-            <h4>Lessons Learned &amp; After Action Reviews</h4>
-            <p>Post submission debriefs that feed insights back into your next pursuit</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- BIDMANA LINK -->
-  <section class="blink-section" id="link">
-    <div class="blink-inner">
-      <div>
-        <div class="section-label">Bidmana Link</div>
-        <h2 class="section-title anim">Find the right teaming partners <em>without leaving your proposal workspace</em></h2>
-        <p class="section-body anim" style="animation-delay:0.1s">
-          Bidmana Link is Bidmana's network for companies seeking teaming partners and strategic partnerships. Companies opt in and become discoverable within Bidmana by their capabilities and NAICS codes, making it easy to find the right partner for any pursuit.
-        </p>
-        <p class="section-body anim" style="animation-delay:0.18s; margin-top:1.25rem;">
-          Whether you are looking for a large prime to team with, a niche subcontractor with a specific capability, or a small business to meet set-aside requirements, Bidmana Link surfaces the right match inside the platform where you are already working.
-        </p>
-      </div>
-      <div class="blink-feature-list anim" style="animation-delay:0.2s">
-        <div class="blink-feature">
-          <div class="blink-feature-icon">
-            <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          </div>
-          <div>
-            <h4>Opt-In Discovery</h4>
-            <p>Companies choose to be listed and control exactly what capabilities and codes they advertise to the network.</p>
-          </div>
-        </div>
-        <div class="blink-feature">
-          <div class="blink-feature-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <div>
-            <h4>Capabilities and NAICS Matching</h4>
-            <p>Search the network by core competencies, NAICS codes, certifications, and past performance areas.</p>
-          </div>
-        </div>
-        <div class="blink-feature">
-          <div class="blink-feature-icon">
-            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-          </div>
-          <div>
-            <h4>Integrated into Your Workflow</h4>
-            <p>Find partners directly inside Bidmana while you are working a pursuit, not through a separate directory.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- AI INTELLIGENCE -->
-  <section class="intelligence" id="intelligence">
-    <div class="section-label">The Technology</div>
-    <h2 class="section-title anim">AI built for government contracting, <em>not generic content</em></h2>
+  <!-- TRUST -->
+  <section class="tight" id="trust">
+    <div class="section-label">Built for Regulated Work</div>
+    <h2 class="section-title anim">Your data stays <em>yours</em></h2>
     <p class="section-body anim" style="animation-delay:0.1s">
-      Bidmana's intelligence layer is purpose built for the GovCon domain. Every model, every feedback loop, and every data source is designed around how federal proposals actually work.
+      Bidmana is designed for contractors who handle sensitive and controlled information. The platform runs inside a Google Cloud Assured Workloads environment and your documents never leave the systems you already trust.
     </p>
-    <div class="intel-grid">
-      <div class="intel-card anim" style="animation-delay:0.12s">
-        <div class="intel-card-icon">
-          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+    <div class="trust-strip anim" style="animation-delay:0.15s">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div>
+          <h4>Assured Workloads hosting</h4>
+          <p>US-only regions with the FedRAMP Moderate control package applied to every service Bidmana runs on.</p>
         </div>
-        <h3>Proprietary GovCon Intelligence Layer</h3>
-        <p>Trained on federal solicitations, agency procurement patterns, and real proposal outcomes. The model understands the language, structure, and expectations of government acquisition in a way generic AI simply cannot.</p>
       </div>
-      <div class="intel-card anim" style="animation-delay:0.2s">
-        <div class="intel-card-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div>
+          <h4>AI inside the boundary</h4>
+          <p>Every AI call runs on Vertex AI within the same cloud boundary. Your content is never used to train models.</p>
         </div>
-        <h3>Domain Specific AI Models</h3>
-        <p>Built around how government proposals actually work, not adapted from general purpose tools. Bidmana's models reason about compliance, evaluation criteria, section structure, and competitive positioning the way an experienced proposal professional would.</p>
       </div>
-      <div class="intel-card anim" style="animation-delay:0.28s">
-        <div class="intel-card-icon">
-          <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <div>
+          <h4>Documents stay in your store</h4>
+          <p>Proposals and libraries live in your SharePoint, OneDrive, Google Drive, or a folder on your computer.</p>
         </div>
-        <h3>Expert Feedback Loops</h3>
-        <p>Every review cycle, compliance check, and pursuit outcome feeds back into our models. Bidmana gets sharper with every engagement, continuously improving through the expertise of real GovCon professionals embedded in the platform.</p>
       </div>
-      <div class="intel-card anim" style="animation-delay:0.36s">
-        <div class="intel-card-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        <div>
+          <h4>Isolated by company</h4>
+          <p>Multi-factor sign-in, per-company data isolation enforced in the database, malware scanning, and a tamper-evident audit log.</p>
         </div>
-        <h3>Your Knowledge Stays Yours</h3>
-        <p>Your institutional knowledge is stored in your private workspace and used only to make your AI sharper. It is never shared, never pooled with other customers, and never used to train models outside your organization.</p>
       </div>
+    </div>
+    <div class="hero-actions" style="justify-content:flex-start; margin-top:2rem;">
+      <a href="platform.html#security" class="btn-ghost">Security details
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
   </section>
 
@@ -1337,80 +210,12 @@
     </div>
   </div>
 
-  <!-- ADVANTAGE -->
-  <section class="advantage" id="advantage">
-    <div class="advantage-inner">
-      <div>
-        <div class="section-label">Competitive Advantage</div>
-        <h2 class="section-title anim">Our moat is built to <em>last</em></h2>
-        <p class="section-body anim" style="animation-delay:0.1s">
-          Our competitive advantage isn't a feature, it's a compounding system.
-        </p>
-        <ul class="moat-list anim" style="animation-delay:0.15s">
-          <li><span class="moat-dot"></span>Embedded GovCon domain expertise</li>
-          <li><span class="moat-dot"></span>Consultants available throughout the entire process</li>
-          <li><span class="moat-dot"></span>Workflow infrastructure, not just features</li>
-          <li><span class="moat-dot"></span>Institutional proposal knowledge systems</li>
-          <li><span class="moat-dot"></span>Sticky proposal data systems that compound value</li>
-        </ul>
-      </div>
-      <div>
-        <div class="section-label" style="margin-top: 0.25rem;">Why Now</div>
-        <div class="why-now-grid anim" style="animation-delay:0.2s; margin-top: 1.25rem;">
-          <div class="why-card">
-            <h4>AI Infrastructure Maturity</h4>
-            <p>The underlying AI capabilities to deliver on this vision are finally production-ready.</p>
-          </div>
-          <div class="why-card">
-            <h4>Proposal Complexity</h4>
-            <p>Federal requirements are expanding faster than traditional teams can scale to meet them.</p>
-          </div>
-          <div class="why-card">
-            <h4>Labor Shortages</h4>
-            <p>GovCon proposal talent is scarce and expensive, creating urgent demand for AI augmentation.</p>
-          </div>
-          <div class="why-card">
-            <h4>Tooling Gaps</h4>
-            <p>Existing GovCon software was built for compliance, not for modern proposal operations.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- TEAM -->
-  <section class="team" id="team">
-    <div class="section-label">Leadership</div>
-    <h2 class="section-title anim">Meet the <em>founders</em></h2>
-    <p class="section-body anim" style="animation-delay:0.1s">
-      Bidmana is built by founders who have lived the federal contracting and defense technology worlds from the inside.
-    </p>
-    <div class="team-grid">
-      <div class="team-card anim" style="animation-delay:0.12s">
-        <img class="team-photo" src="Richard.jpg" alt="Richard Kime" />
-        <h3>Richard Kim</h3>
-        <div class="team-role">Co-Founder, CEO</div>
-        <p>Richard brings over a decade of Federal contracting expertise spanning the Department of Defense, civilian agencies, and the private sector. Throughout his career, he has led capture efforts, proposal management, contract administration, and business development initiatives supporting millions of dollars in Federal opportunities. He is a proud U.S. Air Force veteran and continues to serve in the Air Force Reserve.</p>
-      </div>
-      <div class="team-card anim" style="animation-delay:0.2s">
-        <img class="team-photo" src="Greg.jpeg" alt="Greg Trent" />
-        <h3>Greg Trent</h3>
-        <div class="team-role">Co-Founder, CTO</div>
-        <p>Greg leads the company’s technical vision and is a proud U.S. Army veteran. He brings a background in cybersecurity, DevSecOps, federal systems architecture, and defense program execution, giving Bidmana a technical foundation grounded in the realities of government contracting, compliance-heavy environments, and mission-focused delivery.</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
   <!-- CTA -->
   <section class="cta-section" id="contact">
-    <div class="section-label" style="justify-content:center; display:flex;">Get Early Access</div>
+    <div class="section-label">Get Early Access</div>
     <h2 class="section-title anim">See what Bidmana<br /><em>can do for you</em></h2>
     <p class="section-body anim" style="animation-delay:0.1s">
-      Bidmana is in active development and onboarding a select group of federal contractor partners. If you're building a proposal team that wants to win more, reach out. A Bidmana consultant will respond directly.
+      Bidmana is onboarding a select group of federal contractor partners. If you're building a proposal team that wants to win more, reach out. A Bidmana consultant will respond directly.
     </p>
     <div class="cta-actions anim" style="animation-delay:0.2s">
       <a href="mailto:contact_us@bidmana.com" class="btn-primary mailto-cta">Request a Demo</a>
@@ -1419,115 +224,20 @@
 
   <!-- FOOTER -->
   <footer>
-    <a href="#" style="font-family:'DM Serif Display',serif; font-size:1.2rem; color:var(--gold-muted); text-decoration:none;">Bidmana</a>
-    <span class="footer-copy">© 2026 Bidmana. All rights reserved.</span>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-brand">Bidmana</a>
+      <ul class="footer-links">
+        <li><a href="platform.html">Platform</a></li>
+        <li><a href="intelligence.html">Intelligence</a></li>
+        <li><a href="consultants.html">Consultants</a></li>
+        <li><a href="link.html">Bidmana Link</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mailto:contact_us@bidmana.com" class="mailto-cta">Contact</a></li>
+      </ul>
+      <span class="footer-copy">© 2026 Bidmana LLC. All rights reserved.</span>
+    </div>
   </footer>
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.anim').forEach(el => observer.observe(el));
-
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    navToggle.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      navToggle.classList.toggle('open', isOpen);
-      navToggle.setAttribute('aria-expanded', isOpen);
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        navToggle.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // ── Email CTA menu — works without a desktop mail client ──
-    const EMAIL = 'contact_us@bidmana.com';
-    const EMAIL_SUBJECT = 'Bidmana Demo Request';
-
-    function emailLinks() {
-      const su = encodeURIComponent(EMAIL_SUBJECT);
-      return {
-        gmail:   `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${su}`,
-        outlook: `https://outlook.office.com/mail/deeplink/compose?to=${EMAIL}&subject=${su}`,
-        yahoo:   `https://compose.mail.yahoo.com/?to=${EMAIL}&subject=${su}`,
-        mailto:  `mailto:${EMAIL}?subject=${su}`,
-      };
-    }
-
-    let activeEmailMenu = null;
-    let activeEmailBackdrop = null;
-
-    function closeEmailMenu() {
-      if (activeEmailMenu) {
-        activeEmailMenu.remove();
-        activeEmailBackdrop.remove();
-        activeEmailMenu = null;
-        activeEmailBackdrop = null;
-        document.removeEventListener('keydown', onEmailMenuKeydown);
-      }
-    }
-
-    function onEmailMenuKeydown(e) {
-      if (e.key === 'Escape') closeEmailMenu();
-    }
-
-    function openEmailMenu() {
-      if (activeEmailMenu) { closeEmailMenu(); return; }
-      const links = emailLinks();
-
-      const backdrop = document.createElement('div');
-      backdrop.className = 'email-menu-backdrop';
-      backdrop.addEventListener('click', closeEmailMenu);
-      document.body.appendChild(backdrop);
-
-      const menu = document.createElement('div');
-      menu.className = 'email-menu';
-      menu.innerHTML = `
-        <div class="email-menu-label">Reach us at ${EMAIL}</div>
-        <a href="${links.gmail}" target="_blank" rel="noopener">Open in Gmail</a>
-        <a href="${links.outlook}" target="_blank" rel="noopener">Open in Outlook Web</a>
-        <a href="${links.yahoo}" target="_blank" rel="noopener">Open in Yahoo Mail</a>
-        <div class="email-menu-divider"></div>
-        <a href="${links.mailto}">Use desktop mail app</a>
-        <button type="button" data-copy>Copy email address</button>
-      `;
-      document.body.appendChild(menu);
-      requestAnimationFrame(() => {
-        backdrop.classList.add('open');
-        menu.classList.add('open');
-      });
-
-      menu.querySelector('[data-copy]').addEventListener('click', () => {
-        const btn = menu.querySelector('[data-copy]');
-        navigator.clipboard?.writeText(EMAIL).then(() => {
-          btn.textContent = 'Copied!';
-          setTimeout(closeEmailMenu, 900);
-        }).catch(() => { btn.textContent = EMAIL; });
-      });
-
-      activeEmailMenu = menu;
-      activeEmailBackdrop = backdrop;
-      document.addEventListener('keydown', onEmailMenuKeydown);
-    }
-
-    document.querySelectorAll('a.mailto-cta').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        openEmailMenu();
-      });
-    });
-  </script>
+  <script src="assets/site.js"></script>
 </body>
 </html>
