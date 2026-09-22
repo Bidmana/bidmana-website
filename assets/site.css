@@ -313,6 +313,35 @@ section.tight { padding: 70px 5%; }
 
 .centered { text-align: center; }
 .centered .section-label { display: flex; justify-content: center; }
+
+/* status pill (e.g. Bidmana Link: Growing Network) */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  background: var(--teal-glow);
+  border: 1px solid rgba(0,184,204,0.35);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.status-pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 8px var(--teal);
+}
+.section-label .status-pill { margin-left: 0.75rem; }
+.sol-card .status-pill { margin-top: -0.5rem; margin-bottom: 1rem; }
 .centered .section-title, .centered .section-body { margin-left: auto; margin-right: auto; }
 
 /* ── PROBLEM ── */
