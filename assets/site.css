@@ -795,9 +795,11 @@ a.sol-card:hover .sol-more { color: var(--teal-light); }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* Two leaders since 2026-10-14: two columns, centred under the heading. */
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  margin-top: 4rem;
+  max-width: 54rem;
+  margin: 4rem auto 0;
   position: relative;
 }
 
