@@ -872,15 +872,16 @@ footer {
 
 .compare {
   width: 100%;
-  min-width: 1240px;
+  min-width: 860px;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.85rem;
+  font-size: 0.76rem;
+  table-layout: fixed;
 }
 
 .compare th,
 .compare td {
-  padding: 0.95rem 1rem;
+  padding: 0.6rem 0.5rem;
   text-align: center;
   vertical-align: middle;
   border-bottom: 1px solid var(--black-border);
@@ -895,16 +896,16 @@ footer {
   background: #121212;
   color: var(--text-primary);
   font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
   border-bottom: 1px solid rgba(0,184,204,0.35);
   z-index: 1;
 }
 
 .compare thead th small {
   display: block;
-  margin-top: 0.25rem;
-  font-size: 0.7rem;
+  margin-top: 0.15rem;
+  font-size: 0.62rem;
   font-weight: 300;
   letter-spacing: 0.02em;
   color: var(--text-muted);
@@ -915,7 +916,9 @@ footer {
   text-align: left;
   color: var(--text-primary);
   font-weight: 500;
-  min-width: 220px;
+  width: 190px;
+  min-width: 190px;
+  padding-left: 0.85rem;
   position: sticky;
   left: 0;
   background: var(--black-card);
@@ -926,8 +929,8 @@ footer {
 
 .compare td:first-child span {
   display: block;
-  margin-top: 0.2rem;
-  font-size: 0.74rem;
+  margin-top: 0.15rem;
+  font-size: 0.66rem;
   font-weight: 300;
   color: var(--text-muted);
 }
@@ -948,7 +951,7 @@ footer {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-align: left;
-  padding: 0.6rem 1rem;
+  padding: 0.4rem 0.85rem;
 }
 .compare .group td:first-child { background: #0c0c0c; }
 
@@ -956,17 +959,18 @@ footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
   line-height: 1;
 }
 .mark.yes { background: rgba(0,184,204,0.16); color: var(--teal-light); }
 .mark.part { background: rgba(200,165,110,0.16); color: var(--gold-light); }
 .mark.no { background: rgba(255,255,255,0.06); color: #666; }
-.mark.ns { background: transparent; color: #555; font-weight: 300; font-size: 0.75rem; width: auto; height: auto; }
+.mark.ns { background: transparent; color: #555; font-weight: 300; font-size: 0.66rem; width: auto; height: auto; }
+.compare td.text { font-size: 0.68rem; line-height: 1.4; }
 
 .compare-note {
   margin-top: 1.25rem;
