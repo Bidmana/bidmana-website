@@ -872,7 +872,7 @@ footer {
 
 .compare {
   width: 100%;
-  min-width: 860px;
+  min-width: 0;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 0.76rem;
@@ -999,6 +999,56 @@ footer {
 .sources a { color: var(--teal); text-decoration: none; }
 .sources a:hover { color: var(--teal-light); }
 @media (max-width: 900px) { .sources { grid-template-columns: 1fr; } }
+
+
+@media (max-width: 1100px) {
+  .compare { font-size: 0.7rem; }
+  .compare th, .compare td { padding: 0.5rem 0.3rem; }
+  .compare th:first-child, .compare td:first-child { width: 150px; min-width: 150px; padding-left: 0.6rem; }
+  .compare thead th { font-size: 0.66rem; letter-spacing: 0.01em; }
+  .compare thead th small { display: none; }
+  .compare td:first-child span { font-size: 0.62rem; }
+  .compare td.text { font-size: 0.62rem; }
+  .mark.ns { font-size: 0.6rem; }
+}
+
+/* Narrow frames: one card per capability, vendors listed inside it */
+@media (max-width: 720px) {
+  .compare-wrap { overflow: visible; border: none; background: transparent; }
+  .compare, .compare tbody, .compare tr, .compare td { display: block; width: 100%; min-width: 0; }
+  .compare thead { display: none; }
+  .compare tbody tr {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+  .compare tbody tr.group { background: transparent; border: none; margin: 1.25rem 0 0.5rem; }
+  .compare tbody tr.group td, .compare .group td:first-child { background: transparent; padding: 0; border: none; font-size: 0.72rem; }
+  .compare td:first-child {
+    position: static; width: 100%; min-width: 0;
+    padding: 0.85rem 0.9rem 0.6rem; border-bottom: 1px solid var(--black-border);
+    font-size: 0.86rem; background: var(--black-card);
+  }
+  .compare td:first-child span { font-size: 0.72rem; }
+  .compare td:not(:first-child) {
+    display: flex; justify-content: space-between; align-items: center; gap: 0.75rem;
+    text-align: right; padding: 0.45rem 0.9rem; border-bottom: 1px solid #141414;
+    font-size: 0.74rem;
+  }
+  .compare td:not(:first-child)::before {
+    content: attr(data-v);
+    color: var(--text-primary); font-weight: 500; text-align: left; flex: 0 0 auto;
+  }
+  .compare td.col-bidmana::before { color: var(--teal); }
+  .compare td.col-bidmana { background: rgba(0,184,204,0.08); }
+  .compare tbody tr:hover td { background: var(--black-card); }
+  .compare tbody tr:hover td.col-bidmana { background: rgba(0,184,204,0.08); }
+  .compare tbody tr td:last-child { border-bottom: none; }
+  .compare td.text { font-size: 0.68rem; line-height: 1.4; }
+  .compare td.text:not(:first-child)::before { flex: 0 0 5.5rem; }
+}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
