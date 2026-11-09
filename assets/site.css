@@ -1220,7 +1220,7 @@ footer {
 .shot-tab.is-active.is-counting .shot-progress i { animation: shotCount var(--shot-interval, 7s) linear forwards; }
 @keyframes shotCount { from { width: 0; } to { width: 100%; } }
 
-.shot-stage { max-width: 990px; margin: 0 auto; }   /* 10% narrower than the content column (Greg, 2026-11-09) */
+.shot-stage { max-width: 890px; margin: 0 auto; }   /* two 10% cuts from the 1100px content column (Greg, 2026-11-09) */
 
 /* A browser frame around the screen, so the screenshot reads as the product. */
 .shot-frame {
@@ -1239,19 +1239,6 @@ footer {
   border-bottom: 1px solid var(--black-border);
 }
 .shot-chrome > span { width: 10px; height: 10px; border-radius: 50%; background: #2a2a2a; }
-.shot-url {
-  margin-left: 10px;
-  flex: 1;
-  max-width: 360px;
-  font-size: 0.72rem;
-  color: var(--gold-muted);
-  background: #0a0a0a;
-  border: 1px solid var(--black-border);
-  border-radius: 6px;
-  padding: 3px 10px;
-  text-align: left;
-  letter-spacing: 0.02em;
-}
 .shot-screens { position: relative; aspect-ratio: 1284 / 749; background: #0b0f14; }
 .shot-screen {
   position: absolute; inset: 0; margin: 0;
@@ -1270,10 +1257,7 @@ footer {
   .shot-tabs { gap: 0.4rem; }
   .shot-tab { font-size: 0.8rem; padding: 0.55rem 0.9rem 0.65rem; }
   .shot-frame { border-radius: 10px; }
-  .shot-url { display: none; }
-  .shot-notes { min-height: 0; }
-}
-@media (prefers-reduced-motion: reduce) {
+  @media (prefers-reduced-motion: reduce) {
   .shot-screen { transition: none; transform: none; }
   .shot-tab.is-active.is-counting .shot-progress i { animation: none; }
 }
