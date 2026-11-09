@@ -1257,7 +1257,9 @@ footer {
   .shot-tabs { gap: 0.4rem; }
   .shot-tab { font-size: 0.8rem; padding: 0.55rem 0.9rem 0.65rem; }
   .shot-frame { border-radius: 10px; }
-  @media (prefers-reduced-motion: reduce) {
+  .shot-notes { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
   .shot-screen { transition: none; transform: none; }
   .shot-tab.is-active.is-counting .shot-progress i { animation: none; }
 }
