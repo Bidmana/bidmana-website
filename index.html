@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20261105" />
+  <link rel="stylesheet" href="assets/site.css?v=20261109" />
 </head>
 <body>
 
@@ -154,6 +154,96 @@
         <span class="status-pill">Growing Network</span>
         <p>Find teaming partners by capability, NAICS code, and certification, then engage them without leaving the pursuit you are working.</p>
         <span class="sol-more">Find partners →</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SHOWCASE: the product itself, one screen at a time, in the order of the app's own menu -->
+  <section id="showcase" class="showcase">
+    <div class="section-label">Inside the Platform</div>
+    <h2 class="section-title anim">See it <em>in action</em></h2>
+    <p class="section-body anim" style="animation-delay:0.1s">
+      Five screens your team will live in. Pick one, or let them play.
+    </p>
+
+    <div class="shot-tabs anim" role="tablist" aria-label="Product screens" style="animation-delay:0.15s">
+      <button class="shot-tab is-active" role="tab" aria-selected="true" aria-controls="shot-dashboard" id="tab-dashboard" data-shot="dashboard">
+        <span class="shot-tab-label">Dashboard</span>
+        <span class="shot-progress"><i></i></span>
+      </button>
+      <button class="shot-tab" role="tab" aria-selected="false" aria-controls="shot-intelligence" id="tab-intelligence" data-shot="intelligence" tabindex="-1">
+        <span class="shot-tab-label">Intelligence</span>
+        <span class="shot-progress"><i></i></span>
+      </button>
+      <button class="shot-tab" role="tab" aria-selected="false" aria-controls="shot-opportunities" id="tab-opportunities" data-shot="opportunities" tabindex="-1">
+        <span class="shot-tab-label">Opportunities</span>
+        <span class="shot-progress"><i></i></span>
+      </button>
+      <button class="shot-tab" role="tab" aria-selected="false" aria-controls="shot-pipeline" id="tab-pipeline" data-shot="pipeline" tabindex="-1">
+        <span class="shot-tab-label">Pipeline</span>
+        <span class="shot-progress"><i></i></span>
+      </button>
+      <button class="shot-tab" role="tab" aria-selected="false" aria-controls="shot-proposal" id="tab-proposal" data-shot="proposal" tabindex="-1">
+        <span class="shot-tab-label">Proposals</span>
+        <span class="shot-progress"><i></i></span>
+      </button>
+    </div>
+
+    <div class="shot-stage anim" style="animation-delay:0.2s">
+      <div class="shot-frame" aria-live="polite">
+        <div class="shot-chrome">
+          <span></span><span></span><span></span>
+          <div class="shot-url">app.bidmana.com</div>
+        </div>
+        <div class="shot-screens">
+          <figure class="shot-screen is-active" id="shot-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+            <img src="assets/showcase/dashboard.jpg" alt="The Bidmana dashboard: open opportunities matched to the company, key metrics, deadlines and amendment alerts" loading="lazy" width="1284" height="749" />
+          </figure>
+          <figure class="shot-screen" id="shot-intelligence" role="tabpanel" aria-labelledby="tab-intelligence" hidden>
+            <img src="assets/showcase/intelligence.jpg" alt="Intelligence analytics: win rate, pipeline by stage and predicted versus actual win probability" loading="lazy" width="1284" height="749" />
+          </figure>
+          <figure class="shot-screen" id="shot-opportunities" role="tabpanel" aria-labelledby="tab-opportunities" hidden>
+            <img src="assets/showcase/opportunities.jpg" alt="Opportunity search results with fit scores, estimated values, due dates and one-click add to pipeline" loading="lazy" width="1284" height="749" />
+          </figure>
+          <figure class="shot-screen" id="shot-pipeline" role="tabpanel" aria-labelledby="tab-pipeline" hidden>
+            <img src="assets/showcase/pipeline.jpg" alt="The pipeline board: pursuits moving from Tracking through Qualifying and Pursuing to Proposal, each with its files, win probability and due date" loading="lazy" width="1284" height="749" />
+          </figure>
+          <figure class="shot-screen" id="shot-proposal" role="tabpanel" aria-labelledby="tab-proposal" hidden>
+            <img src="assets/showcase/proposal.jpg" alt="The proposal workspace: RFP loaded, requirements extracted, document status and the AI assistant beside a Word-style editor" loading="lazy" width="1284" height="749" />
+          </figure>
+        </div>
+      </div>
+
+      <div class="shot-notes">
+        <div class="shot-note is-active" data-shot="dashboard">
+          <h3>Your morning in one screen</h3>
+          <p>Open opportunities matched to your profile, pipeline value and win rate, the deadlines coming up, and any amendment that changed a pursuit overnight. Drag the cards into the layout that suits you.</p>
+        </div>
+        <div class="shot-note" data-shot="intelligence" hidden>
+          <h3>Know the odds before you commit</h3>
+          <p>Your own capture record beside market signals: win rate by agency, pipeline by stage, recompetes on the horizon, emerging competitors, and a win probability that is checked against what actually happened.</p>
+        </div>
+        <div class="shot-note" data-shot="opportunities" hidden>
+          <h3>Search that already knows your company</h3>
+          <p>Federal, state and local, SBIR and grant notices in one list, each with a fit score, an estimated value from comparable awards, and the days left to respond. One click adds it to the pipeline.</p>
+        </div>
+        <div class="shot-note" data-shot="pipeline" hidden>
+          <h3>Every pursuit, from first look to proposal</h3>
+          <p>A board that moves each opportunity through Tracking, Qualifying, Pursuing and Proposal, with its documents attached, a scored win probability, the due date, and an amendment flag the moment the notice changes.</p>
+        </div>
+        <div class="shot-note" data-shot="proposal" hidden>
+          <h3>From solicitation to draft, with receipts</h3>
+          <p>The RFP shredded into requirements, a compliance read that shows what is met, and a Word-style editor where every drafted claim is grounded in your past performance. Export when it is ready.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-actions" style="justify-content:center; margin-top:2.25rem;">
+      <a href="mailto:contact_us@bidmana.com" class="btn-primary mailto-cta">See a live walkthrough</a>
+      <a href="platform.html" class="btn-ghost">Every feature, in detail
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
   </section>

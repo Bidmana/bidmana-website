@@ -116,4 +116,78 @@
       openEmailMenu();
     });
   });
+
+  // ── Home: the product showcase ──
+  // Four screens behind four tabs. They advance on their own every few
+  // seconds (the bar under the active tab counts it down), stop while the
+  // pointer or keyboard focus is on them, and never auto-advance for
+  // someone who asked their system for reduced motion.
+  (function showcase() {
+    const root = document.getElementById('showcase');
+    if (!root) return;
+    const tabs = Array.from(root.querySelectorAll('.shot-tab'));
+    const screens = Array.from(root.querySelectorAll('.shot-screen'));
+    const notes = Array.from(root.querySelectorAll('.shot-note'));
+    if (tabs.length < 2) return;
+    const INTERVAL = 7000;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    root.style.setProperty('--shot-interval', INTERVAL + 'ms');
+    let index = 0, timer = null, paused = false, started = false;
+
+    function show(i) {
+      index = (i + tabs.length) % tabs.length;
+      const key = tabs[index].dataset.shot;
+      tabs.forEach((t, n) => {
+        const on = n === index;
+        t.classList.toggle('is-active', on);
+        t.classList.remove('is-counting');
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.setAttribute('tabindex', on ? '0' : '-1');
+      });
+      screens.forEach((s) => { const on = s.id === 'shot-' + key; s.classList.toggle('is-active', on); s.hidden = !on; });
+      notes.forEach((n) => { const on = n.dataset.shot === key; n.classList.toggle('is-active', on); n.hidden = !on; });
+      // Restart the countdown bar on the new tab (forces the animation to replay).
+      if (started && !paused && !reduced) {
+        void tabs[index].offsetWidth;
+        tabs[index].classList.add('is-counting');
+      }
+    }
+
+    function schedule() {
+      clearTimeout(timer);
+      if (reduced || paused || !started) return;
+      timer = setTimeout(() => { show(index + 1); schedule(); }, INTERVAL);
+    }
+    function pause() { paused = true; clearTimeout(timer); tabs[index].classList.remove('is-counting'); }
+    function resume() {
+      if (!paused) return;
+      paused = false;
+      if (!reduced && started) { void tabs[index].offsetWidth; tabs[index].classList.add('is-counting'); }
+      schedule();
+    }
+
+    tabs.forEach((t, n) => {
+      t.addEventListener('click', () => { show(n); schedule(); });
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          show(index + (e.key === 'ArrowRight' ? 1 : -1));
+          tabs[index].focus();
+          schedule();
+        }
+      });
+    });
+    root.addEventListener('mouseenter', pause);
+    root.addEventListener('mouseleave', resume);
+    root.addEventListener('focusin', pause);
+    root.addEventListener('focusout', (e) => { if (!root.contains(e.relatedTarget)) resume(); });
+    document.addEventListener('visibilitychange', () => { document.hidden ? pause() : resume(); });
+
+    // Nothing moves until the section is actually on screen.
+    const start = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { started = true; show(index); schedule(); start.disconnect(); }
+    }, { threshold: 0.3 });
+    start.observe(root);
+    show(0);
+  })();
 })();
