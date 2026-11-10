@@ -1268,10 +1268,14 @@ footer {
 .page-hero.has-art h1, .page-hero.has-art .hero-sub { max-width: 54%; }
 .hero-art {
   position: absolute;
-  right: 5%;
-  top: 50%;
-  transform: translateY(-54%);
-  width: min(34vw, 440px);
+  /* Centred on the hero's text block (the section has 150px above it and 70px
+     below, so its middle is 40px under the section's), and centred in the
+     space to the right of the text. `translate`, not `transform`: the fadeUp
+     animation ends on its own transform and used to cancel the centring. */
+  left: 74.3%;
+  top: calc(50% + 40px);
+  translate: -50% -50%;
+  width: min(38vw, 506px);
   pointer-events: none;
   opacity: 0;
   animation: fadeUp 0.9s ease 0.3s forwards;
@@ -1342,4 +1346,4 @@ footer {
   .art-flow .ln.draw, .art-merge .in { stroke-dashoffset: 0; }
   .art-radar .blip { opacity: 1; }
 }
-.art-radar { transform: translateY(-50%); width: min(30vw, 400px); }
+.art-radar { width: min(34vw, 460px); }
