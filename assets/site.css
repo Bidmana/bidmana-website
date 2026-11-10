@@ -863,8 +863,11 @@ footer {
 /* ── COMPARISON TABLE ── */
 .compare-wrap {
   margin-top: 3rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  /* clip, not auto: a scrolling box would hold the sticky header inside
+     itself, and the header has to follow the PAGE as it scrolls (Greg,
+     2026-11-10). The table reflows to any width, so nothing needs to scroll
+     sideways. */
+  overflow: clip;
   border: 1px solid var(--black-border);
   border-radius: 10px;
   background: var(--black-card);
@@ -892,7 +895,7 @@ footer {
 
 .compare thead th {
   position: sticky;
-  top: 0;
+  top: 68px;   /* under the fixed nav bar */
   background: #121212;
   color: var(--text-primary);
   font-weight: 600;
@@ -944,7 +947,8 @@ footer {
 }
 .compare thead th.col-bidmana {
   color: var(--teal-light);
-  background: rgba(0,184,204,0.22);
+  /* opaque: rows pass underneath the sticky header */
+  background: linear-gradient(rgba(0,184,204,0.22), rgba(0,184,204,0.22)), #121212;
   border-top: 2px solid var(--teal);
   border-bottom: 1px solid var(--teal);
   font-size: 0.82rem;
