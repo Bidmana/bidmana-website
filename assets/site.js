@@ -1,5 +1,13 @@
 // Shared behaviour for every page: reveal animations, mobile nav, active link, email CTA menu.
 (function () {
+  // ── Clean addresses: an old /page.html link shows as /page ──
+  if (/(^|\.)bidmana\.com$/.test(location.hostname)) {
+    const clean = location.pathname.replace(/\/index(\.html)?$/, '/').replace(/\.html$/, '');
+    if (clean !== location.pathname) {
+      history.replaceState(null, '', clean + location.search + location.hash);
+    }
+  }
+
   // ── Reveal on scroll ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
@@ -32,9 +40,10 @@
     });
 
     // Mark the current page in the nav.
-    const here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    const pageName = (s) => s.toLowerCase().replace(/\.html$/, '');
+    const here = pageName(location.pathname.split('/').pop() || 'index');
     navLinks.querySelectorAll('a[href]').forEach((link) => {
-      const target = (link.getAttribute('href') || '').split('#')[0].toLowerCase();
+      const target = pageName((link.getAttribute('href') || '').split('#')[0]);
       if (target && target === here) link.setAttribute('aria-current', 'page');
     });
   }
