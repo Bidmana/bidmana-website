@@ -1224,7 +1224,7 @@ footer {
 .shot-tab.is-active.is-counting .shot-progress i { animation: shotCount var(--shot-interval, 7s) linear forwards; }
 @keyframes shotCount { from { width: 0; } to { width: 100%; } }
 
-.shot-stage { max-width: 890px; margin: 0 auto; }   /* two 10% cuts from the 1100px content column (Greg, 2026-11-09) */
+.shot-stage { max-width: 1240px; margin: 0 auto; }   /* was 890px (Greg, 2026-11-09); widened so the screenshots read clearly (Greg, 2026-11-16) */
 
 /* A browser frame around the screen, so the screenshot reads as the product. */
 .shot-frame {
@@ -1369,20 +1369,21 @@ footer {
 .shot-zoom-btn svg { width: 14px; height: 14px; }
 .shot-zoom {
   position: fixed; inset: 0; z-index: 2000;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: flex-start; justify-content: center;
+  overflow: auto;
   padding: 3.25rem 2vw 2vw;
   background: rgba(2, 5, 9, 0.94);
   cursor: zoom-out;
   animation: shotZoomIn 0.18s ease both;
 }
 .shot-zoom img {
-  display: block; max-width: 100%; max-height: 100%; width: auto; height: auto;
+  display: block; width: 100%; max-width: 2568px; height: auto;
   border-radius: 10px;
   border: 1px solid var(--black-border);
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7);
 }
 .shot-zoom-close {
-  position: absolute; top: 0.6rem; right: 0.9rem;
+  position: fixed; top: 0.6rem; right: 1.4rem;
   width: 2.25rem; height: 2.25rem;
   font: inherit; font-size: 1.5rem; line-height: 1; color: #e8f4f6;
   background: rgba(8, 12, 18, 0.8);
