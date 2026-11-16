@@ -128,9 +128,10 @@
 
   // ── Home: the product showcase ──
   // Four screens behind four tabs. They advance on their own every few
-  // seconds (the bar under the active tab counts it down), stop while the
-  // pointer or keyboard focus is on them, and never auto-advance for
-  // someone who asked their system for reduced motion.
+  // seconds (the bar under the active tab counts it down), stop while
+  // keyboard focus is on them, and never auto-advance for someone who asked
+  // their system for reduced motion. The pointer does not stop them: they
+  // keep going while the mouse moves over the section (Greg, 2026-11-16).
   (function showcase() {
     const root = document.getElementById('showcase');
     if (!root) return;
@@ -186,9 +187,8 @@
         }
       });
     });
-    root.addEventListener('mouseenter', pause);
-    root.addEventListener('mouseleave', resume);
-    root.addEventListener('focusin', pause);
+    // Keyboard focus only: a mouse click on a tab focuses it too, and that must not stop the rotation.
+    root.addEventListener('focusin', (e) => { if (e.target.matches(':focus-visible')) pause(); });
     root.addEventListener('focusout', (e) => { if (!root.contains(e.relatedTarget)) resume(); });
     document.addEventListener('visibilitychange', () => { document.hidden ? pause() : resume(); });
 
