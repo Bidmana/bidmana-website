@@ -169,7 +169,7 @@
     }
     function pause() { paused = true; clearTimeout(timer); tabs[index].classList.remove('is-counting'); }
     function resume() {
-      if (!paused) return;
+      if (!paused || zoom) return;
       paused = false;
       if (!reduced && started) { void tabs[index].offsetWidth; tabs[index].classList.add('is-counting'); }
       schedule();
@@ -191,6 +191,49 @@
     root.addEventListener('focusin', pause);
     root.addEventListener('focusout', (e) => { if (!root.contains(e.relatedTarget)) resume(); });
     document.addEventListener('visibilitychange', () => { document.hidden ? pause() : resume(); });
+
+    // Click a screenshot to read it: the same image as large as the window
+    // allows (Greg, 2026-11-16: the text in the frame was too small to read).
+    // Esc, the close button or a click anywhere puts it away. Nothing
+    // advances while it is open.
+    let zoom = null, zoomFrom = null;
+    function zoomKey(e) { if (e.key === 'Escape') closeZoom(); }
+    function closeZoom() {
+      if (!zoom) return;
+      zoom.remove();
+      zoom = null;
+      document.removeEventListener('keydown', zoomKey);
+      document.documentElement.classList.remove('shot-zoom-open');
+      if (zoomFrom) zoomFrom.focus();
+      if (!root.matches(':hover') && !root.contains(document.activeElement)) resume();
+    }
+    function openZoom(from) {
+      const img = root.querySelector('.shot-screen.is-active img');
+      if (!img || zoom) return;
+      pause();
+      zoomFrom = from || null;
+      zoom = document.createElement('div');
+      zoom.className = 'shot-zoom';
+      zoom.setAttribute('role', 'dialog');
+      zoom.setAttribute('aria-modal', 'true');
+      zoom.setAttribute('aria-label', 'Screenshot, enlarged');
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'shot-zoom-close';
+      close.setAttribute('aria-label', 'Close');
+      close.textContent = '\u00d7';
+      const big = document.createElement('img');
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      zoom.append(close, big);
+      zoom.addEventListener('click', closeZoom);
+      document.addEventListener('keydown', zoomKey);
+      document.documentElement.classList.add('shot-zoom-open');
+      document.body.appendChild(zoom);
+      close.focus();
+    }
+    const screensBox = root.querySelector('.shot-screens');
+    if (screensBox) screensBox.addEventListener('click', (e) => openZoom(e.target.closest('.shot-zoom-btn')));
 
     // Nothing moves until the section is actually on screen.
     const start = new IntersectionObserver((entries) => {
