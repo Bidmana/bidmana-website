@@ -10,327 +10,620 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=20261116c" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Colours are taken from the logo: the blue-black behind it, the cyan flame,
+       the deep blue of the water, the gold ring, the teal of "mana". */
+    :root {
+      --ink:        #02060b;
+      --ink-2:      #06101a;
+      --panel:      #0a1622;
+      --line:       rgba(120, 200, 235, 0.14);
+      --cyan:       #2fd0f0;
+      --cyan-soft:  #8be6fa;
+      --blue:       #0f6fd8;
+      --teal:       #1fb9b4;
+      --gold:       #f2b632;
+      --gold-soft:  #f7d37c;
+      --text:       #f4f8fb;
+      --text-2:     #a9bccd;
+      --text-3:     #6d8196;
+      --serif:      'DM Serif Display', Georgia, serif;
+      --sans:       'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--ink);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; padding: 0 5%;
+      background: rgba(2, 6, 11, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--serif); font-size: 1.55rem; letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .nav-logo img { height: 40px; width: auto; }
+    .nav-logo .mana { color: var(--teal); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-2); text-decoration: none; font-size: 0.875rem; letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.nav-cta {
+      background: var(--cyan); color: #00131c; font-weight: 600; font-size: 0.78rem;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 0.6rem 1.15rem; border-radius: 4px;
+    }
+    .nav-links a.nav-cta:hover { background: var(--cyan-soft); color: #00131c; }
+
+    /* ── SHARED ── */
+    section { position: relative; padding: 110px 5%; }
+    .wrap { max-width: 1160px; margin: 0 auto; }
+    .eyebrow {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; line-height: 1.08; text-wrap: balance; }
+    h2 { font-size: clamp(2.1rem, 4.2vw, 3.5rem); }
+    h1 em, h2 em { font-style: italic; color: var(--cyan); }
+    .lede { font-size: clamp(1.05rem, 1.5vw, 1.25rem); color: var(--text-2); font-weight: 300; line-height: 1.7; }
+    .center { text-align: center; }
+    .rule { height: 1px; background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent); }
+
+    .btn {
+      display: inline-block; text-decoration: none;
+      background: var(--cyan); color: #00131c;
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 1rem 2.4rem; border-radius: 4px;
+      box-shadow: 0 0 0 1px rgba(47, 208, 240, 0.35), 0 10px 40px -8px rgba(47, 208, 240, 0.55);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn:hover { background: var(--cyan-soft); transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(139, 230, 250, 0.5), 0 14px 46px -6px rgba(47, 208, 240, 0.7); }
+    .btn:focus-visible, .nav-links a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .js .reveal.in { opacity: 1; transform: none; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; padding: 96px 5% 70px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+      background:
+        radial-gradient(60% 46% at 50% 30%, rgba(15, 111, 216, 0.20), transparent 70%),
+        radial-gradient(40% 30% at 50% 34%, rgba(47, 208, 240, 0.10), transparent 70%),
+        var(--ink);
+    }
+    .hero-mark { position: relative; width: min(74vw, 470px); margin-bottom: 1.4rem; }
+    .hero-mark img { position: relative; z-index: 1; width: 100%; height: auto; }
+    /* Ripples leave the logo's own water line (about 60% down the image). */
+    .ripples { position: absolute; left: 50%; top: 60%; width: 0; height: 0; z-index: 0; }
+    .ripples i {
+      position: absolute; left: 50%; top: 50%;
+      width: 150vmax; height: 34vmax; margin: -17vmax 0 0 -75vmax;
+      border-radius: 50%;
+      border: 1px solid rgba(47, 208, 240, 0.55);
+      opacity: 0; transform: scale(0.12);
+      animation: ripple 9s linear infinite;
+    }
+    .ripples i:nth-child(2) { animation-delay: 3s; }
+    .ripples i:nth-child(3) { animation-delay: 6s; border-color: rgba(242, 182, 50, 0.5); }
+    @keyframes ripple {
+      0%   { transform: scale(0.12); opacity: 0; }
+      12%  { opacity: 0.55; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+    .hero .eyebrow { margin-bottom: 1.3rem; position: relative; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 1.5rem; position: relative; }
+    .hero h1 span { display: block; }
+    .hero .lede { max-width: 640px; margin: 0 auto 2.4rem; position: relative; }
+    .hero .btn { position: relative; }
+
+    /* ── WORKFLOW ── */
+    .flow-head { max-width: 760px; margin: 0 auto 4.5rem; }
+    .flow-head em { display: block; }
+    .flow { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); list-style: none; --dur: 10s; }
+    .flow::before, .flow-fill, .flow-pulse { content: ''; position: absolute; top: 31px; }
+    .flow::before { left: 8.333%; right: 8.333%; height: 2px; background: var(--line); }
+    .flow-fill {
+      left: 8.333%; right: 8.333%; height: 2px; transform-origin: left center;
+      background: linear-gradient(90deg, var(--blue), var(--cyan) 60%, var(--gold));
+      animation: fillX var(--dur) linear infinite;
+    }
+    .flow-pulse {
+      left: 8.333%; width: 14px; height: 14px; margin: -6px 0 0 -7px; border-radius: 50%;
+      background: #fff; box-shadow: 0 0 14px 5px rgba(47, 208, 240, 0.9), 0 0 44px 12px rgba(47, 208, 240, 0.4);
+      animation: moveX var(--dur) linear infinite;
+    }
+    @keyframes fillX { 0% { clip-path: inset(0 100% 0 0); opacity: 1; } 80% { clip-path: inset(0); opacity: 1; } 94%, 100% { clip-path: inset(0); opacity: 0; } }
+    @keyframes moveX { 0% { left: 8.333%; opacity: 1; } 80% { left: 91.667%; opacity: 1; } 86%, 100% { left: 91.667%; opacity: 0; } }
+
+    .step { position: relative; z-index: 1; text-align: center; padding: 0 0.6rem; }
+    .step-dot {
+      width: 64px; height: 64px; margin: 0 auto 1.3rem; border-radius: 50%;
+      display: grid; place-items: center;
+      font-family: var(--serif); font-size: 1.35rem; color: var(--cyan-soft);
+      background: var(--ink-2); border: 1px solid rgba(47, 208, 240, 0.35);
+      animation: lit var(--dur) linear infinite; animation-delay: calc(var(--i) * var(--dur) * 0.16);
+    }
+    .step:last-child .step-dot { border-color: rgba(242, 182, 50, 0.55); color: var(--gold-soft); }
+    @keyframes lit {
+      0%   { box-shadow: 0 0 0 0 rgba(47, 208, 240, 0); background: var(--ink-2); }
+      3%   { box-shadow: 0 0 0 6px rgba(47, 208, 240, 0.16), 0 0 34px 4px rgba(47, 208, 240, 0.6); background: #0d3350; }
+      24%  { box-shadow: 0 0 0 0 rgba(47, 208, 240, 0); background: var(--ink-2); }
+      100% { box-shadow: 0 0 0 0 rgba(47, 208, 240, 0); background: var(--ink-2); }
+    }
+    .step h3 { font-family: var(--sans); font-size: 1.05rem; font-weight: 500; line-height: 1.35; text-wrap: balance; }
+
+    /* ── ORACLE ── */
+    .oracle { background: linear-gradient(180deg, var(--ink), var(--ink-2) 40%, var(--ink)); overflow: hidden; }
+    .oracle-head { margin-bottom: 2.8rem; }
+    .oracle-grid { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 3.5rem; align-items: stretch; }
+    .oracle-left { display: flex; flex-direction: column; justify-content: space-between; gap: 2.2rem; }
+    .oracle .eyebrow { margin-bottom: 1rem; }
+    .oracle h2 { margin-bottom: 1.1rem; }
+    .oracle .lede { margin-bottom: 0; }
+
+    .caps { display: grid; gap: 1.5rem; }
+        .cap h3 { font-family: var(--sans); font-size: 1.08rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .cap p { color: var(--text-2); font-size: 0.98rem; }
+
+    .asks-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.7rem; }
+    .asks { display: grid; gap: 0.55rem; }
+    .ask {
+      position: relative; overflow: hidden; text-align: left; cursor: pointer;
+      padding: 0.85rem 1.1rem; border-radius: 10px;
+      font: inherit; font-size: 0.98rem; color: var(--text-2);
+      background: transparent; border: 1px solid var(--line);
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .ask:hover { border-color: rgba(47, 208, 240, 0.4); color: var(--text); }
+    .ask:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .ask.on { background: rgba(47, 208, 240, 0.07); border-color: rgba(47, 208, 240, 0.55); color: var(--text); }
+    .ask i { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--cyan); transform: scaleX(0); transform-origin: left; }
+    .ask.on i { animation: tick 7.5s linear forwards; }
+    @keyframes tick { to { transform: scaleX(1); } }
+
+    /* The orb: the same three layers the app uses. */
+    .orb { position: relative; display: inline-block; flex: none; }
+    .orb img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+    .spin { animation: spin 60s linear infinite; }
+    .spin.fast { animation-duration: 7s; }
+    .pulse { animation: pulse 2s ease-in-out infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulse { 50% { opacity: 0.45; } }
+
+    .mock {
+      border-radius: 16px; overflow: hidden;
+      background: var(--panel); border: 1px solid var(--line);
+      box-shadow: 0 40px 120px -30px rgba(15, 111, 216, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    }
+    .mock { display: flex; flex-direction: column; }
+    .mock-tabs { display: flex; gap: 1.7rem; padding: 0.7rem 1.5rem 0; background: rgba(2, 6, 11, 0.6); border-bottom: 1px solid var(--line); overflow: hidden; }
+    .mock-tab { display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0 0.7rem; font-size: 0.86rem; color: var(--text-3); white-space: nowrap; border-bottom: 2px solid transparent; }
+    .mock-tab.on { color: #fff; border-bottom-color: var(--cyan); }
+
+    .mock-main { position: relative; flex: 1; min-height: 440px; display: flex; flex-direction: column; }
+    .scene { position: absolute; inset: 0 0 62px 0; padding: 1.5rem; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s; }
+    .scene-idle { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; text-align: center; }
+    .scene-idle h4 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; }
+    .scene-idle p { color: var(--text-3); font-size: 0.92rem; max-width: 22rem; }
+    .scene-chat { display: flex; flex-direction: column; gap: 1.1rem; }
+    .mock[data-state="idle"] .scene-idle,
+    .mock[data-state="thinking"] .scene-chat,
+    .mock[data-state="responding"] .scene-chat { opacity: 1; visibility: visible; }
+
+    .bubble { max-width: 84%; padding: 0.7rem 1rem; border-radius: 14px; font-size: 0.95rem; line-height: 1.5; }
+    .bubble.me { align-self: flex-end; background: #12406b; color: #eaf6ff; border-bottom-right-radius: 4px; }
+    .mock[data-state="thinking"] .bubble.me { animation: rise 0.4s ease both; }
+    .bubble.it { background: rgba(255, 255, 255, 0.06); border: 1px solid var(--line); color: var(--text); border-bottom-left-radius: 4px; }
+    .turn { display: none; align-items: flex-end; gap: 0.6rem; }
+    .turn.think { flex-direction: column; align-items: center; gap: 0.7rem; margin-top: 1.2rem; color: var(--text-2); font-size: 0.9rem; }
+    .mock[data-state="thinking"] .turn.think { display: flex; }
+    .mock[data-state="responding"] .turn.answer { display: flex; animation: rise 0.5s ease both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+    .dots::after { content: ''; animation: dots 1.4s steps(4, end) infinite; }
+    @keyframes dots { 0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; } 75% { content: '...'; } }
+
+    .composer { margin-top: auto; height: 62px; padding: 0.75rem 1.5rem; border-top: 1px solid var(--line); display: flex; }
+    .composer div { flex: 1; display: flex; align-items: center; padding: 0 0.9rem; border-radius: 9px; border: 1px solid var(--line); color: var(--text-3); font-size: 0.88rem; }
+
+    /* ── EXPERTS + AI ── */
+    .team-head { max-width: 780px; margin: 0 auto 3.6rem; }
+    .team-head h2 { margin-bottom: 1.1rem; }
+    .team-head em { display: block; }
+    .duo { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: 1.6rem; }
+    .side { padding: 2.2rem 2rem; border-radius: 16px; background: var(--panel); border: 1px solid var(--line); text-align: left; }
+    .side.human { border-color: rgba(242, 182, 50, 0.35); }
+    .side.ai { border-color: rgba(47, 208, 240, 0.4); }
+    .side-top { display: flex; align-items: center; gap: 1rem; height: 72px; margin-bottom: 1.4rem; }
+    .people { display: flex; }
+    .people span {
+      width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+      background: #1a1608; border: 2px solid var(--gold); margin-left: -14px;
+    }
+    .people span:first-child { margin-left: 0; }
+    .people svg { width: 26px; height: 26px; fill: none; stroke: var(--gold-soft); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .side h3 { font-family: var(--serif); font-weight: 400; font-size: 1.7rem; line-height: 1.15; margin-bottom: 0.6rem; }
+    .side > p { color: var(--text-2); margin-bottom: 1.3rem; }
+    .side ul { list-style: none; display: grid; gap: 0.65rem; }
+    .side li { position: relative; padding-left: 1.7rem; }
+    .side li::before { content: ''; position: absolute; left: 0.1rem; top: 0.42em; width: 0.8rem; height: 0.42rem; border-left: 2px solid; border-bottom: 2px solid; transform: rotate(-45deg); }
+    .side.human li::before { color: var(--gold); }
+    .side.ai li::before { color: var(--cyan); }
+    .plus {
+      align-self: center; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 1.8rem; font-weight: 300; line-height: 1; color: var(--text);
+      background: var(--ink-2); border: 1px solid var(--line);
+    }
+    .join { width: 2px; height: 56px; margin: 0 auto; background: linear-gradient(180deg, var(--line), var(--gold)); }
+    .wins {
+      max-width: 620px; margin: 0 auto; padding: 1.8rem 2rem; border-radius: 16px; text-align: center;
+      border: 1px solid var(--gold);
+      background: radial-gradient(80% 140% at 50% 0%, rgba(242, 182, 50, 0.16), transparent 70%), var(--ink-2);
+      box-shadow: 0 0 60px -18px rgba(242, 182, 50, 0.6);
+    }
+    .wins strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; color: var(--gold-soft); margin-bottom: 0.4rem; }
+    .wins p { color: var(--text-2); }
+
+    /* ── ECOSYSTEM ── */
+    .eco { overflow: hidden; }
+    .eco h2 { margin-bottom: 4.8rem; }
+    .ring { position: relative; width: min(64vw, 440px); aspect-ratio: 1; margin: 0 auto; }
+    .ring::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 34px rgba(242, 182, 50, 0.35), inset 0 0 34px rgba(242, 182, 50, 0.18);
+    }
+    .ring::after {
+      content: ''; position: absolute; inset: 14%; border-radius: 50%;
+      background: radial-gradient(circle, rgba(47, 208, 240, 0.28), rgba(15, 111, 216, 0.10) 55%, transparent 72%);
+    }
+    .orbit { position: absolute; inset: 0; list-style: none; animation: spin 90s linear infinite; }
+    .orbit li { position: absolute; left: var(--x); top: var(--y); translate: -50% -50%; animation: unspin 90s linear infinite; }
+    @keyframes unspin { to { rotate: -360deg; } }
+    .orbit span {
+      display: block; padding: 0.55rem 1.15rem; border-radius: 999px; white-space: nowrap;
+      font-size: 0.98rem; font-weight: 500; letter-spacing: 0.02em;
+      background: var(--ink); border: 1px solid rgba(47, 208, 240, 0.5);
+      box-shadow: 0 0 22px -4px rgba(47, 208, 240, 0.55);
+    }
+    .ring-core { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; text-align: center; }
+    .ring-core p { font-family: var(--serif); font-size: clamp(1.7rem, 4.4vw, 2.9rem); line-height: 1.05; }
+    .ring-core em { display: block; font-style: italic; color: var(--cyan); }
+
+    /* ── DEMO ── */
+    .demo { padding-top: 60px; }
+    .demo-card {
+      max-width: 880px; margin: 0 auto; padding: 4.5rem 2rem; text-align: center; border-radius: 20px;
+      border: 1px solid rgba(242, 182, 50, 0.35);
+      background:
+        radial-gradient(70% 90% at 50% 110%, rgba(47, 208, 240, 0.22), transparent 70%),
+        linear-gradient(180deg, var(--panel), var(--ink-2));
+    }
+    .demo-card h2 { margin-bottom: 0.9rem; }
+    .demo-card .lede { margin-bottom: 2.2rem; }
+
+    footer { padding: 2.2rem 5% 4.5rem; border-top: 1px solid var(--line); color: var(--text-3); font-size: 0.85rem; }
+    .foot { max-width: 1160px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; justify-content: space-between; }
+    .foot ul { display: flex; flex-wrap: wrap; gap: 1.5rem; list-style: none; }
+    .foot a { color: var(--text-2); text-decoration: none; }
+    .foot a:hover { color: var(--text); }
+
+
+    /* ── SMALLER SCREENS ── */
+    @media (max-width: 980px) {
+      .nav-links li:not(:last-child) { display: none; }
+      .oracle-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 760px) {
+      section { padding: 80px 16px; }
+      .hero { padding: 90px 16px 60px; }
+      .flow-head { margin-bottom: 3rem; }
+      .flow { grid-template-columns: 1fr; gap: 1.6rem; max-width: 340px; margin: 0 auto; }
+      .flow::before, .flow-fill { left: 27px; right: auto; top: 28px; bottom: 28px; width: 2px; height: auto; }
+      .flow-fill { transform-origin: center top; background: linear-gradient(180deg, var(--blue), var(--cyan) 60%, var(--gold)); animation-name: fillY; }
+      .flow-pulse { left: 28px; top: 28px; animation-name: moveY; }
+      @keyframes fillY { 0% { clip-path: inset(0 0 100% 0); opacity: 1; } 80% { clip-path: inset(0); opacity: 1; } 94%, 100% { clip-path: inset(0); opacity: 0; } }
+      @keyframes moveY { 0% { top: 28px; opacity: 1; } 80% { top: calc(100% - 28px); opacity: 1; } 86%, 100% { top: calc(100% - 28px); opacity: 0; } }
+      .step { display: flex; align-items: center; gap: 1.1rem; text-align: left; padding: 0; }
+      .step-dot { width: 56px; height: 56px; margin: 0; flex: none; }
+      .mock-tab:nth-child(2), .mock-tab:nth-child(3) { display: none; }
+      .mock-main { min-height: 470px; }
+      .team-head { margin-bottom: 2.6rem; }
+      .duo { grid-template-columns: 1fr; gap: 1rem; }
+      .side { padding: 1.7rem 1.4rem; }
+      .plus { justify-self: center; }
+      .join { height: 36px; }
+      .eco h2 { margin-bottom: 3.6rem; }
+      .ring { width: min(60vw, 300px); }
+      .orbit span { font-size: 0.8rem; padding: 0.4rem 0.75rem; }
+      .demo-card { padding: 3.2rem 1.25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+      .flow-pulse { display: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
-    <a href="./" class="nav-logo">Bidmana</a>
+    <a href="#top" class="nav-logo"><img src="assets/emblem.webp" alt="" /><span>Bid<span class="mana">mana</span></span></a>
     <ul class="nav-links">
       <li><a href="platform">Platform</a></li>
       <li><a href="intelligence">Intelligence</a></li>
       <li><a href="consultants">Consultants</a></li>
       <li><a href="link">Bidmana Link</a></li>
-        <li><a href="compare">Compare</a></li>
+      <li><a href="compare">Compare</a></li>
       <li><a href="about">About</a></li>
-      <li><a href="mailto:contact_us@bidmana.com" class="nav-cta mailto-cta">Request Demo</a></li>
+      <li><a href="#request-a-demo" class="nav-cta">Request a Demo</a></li>
     </ul>
-    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-logo anim">
-      <img src="mana.png" alt="Bidmana" />
-      <span class="hero-wordmark"><span class="wm-bid">Bid</span><span class="wm-mana">mana</span></span>
-    </div>
-    <h1 class="anim" style="animation-delay:0.08s">The <em>GovCon</em> Ecosystem</h1>
-    <p class="hero-sub anim" style="animation-delay:0.16s">
-      Find the right opportunities, build grounded proposals, understand your market, and bring in experienced GovCon professionals when you need them. All in one platform.
-    </p>
-    <div class="hero-actions anim" style="animation-delay:0.24s">
-      <a href="mailto:contact_us@bidmana.com" class="btn-primary mailto-cta">Request a Demo</a>
-      <a href="platform" class="btn-ghost">Explore the platform
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </section>
+  <main id="top">
 
-  <div class="divider"></div>
-
-  <!-- SHOWCASE: the product itself, one screen at a time, in the order of the app's own menu -->
-  <section id="showcase" class="showcase">
-    <div class="section-label">Inside the Platform</div>
-    <h2 class="section-title anim">See it <em>in action</em></h2>
-    <p class="section-body anim" style="animation-delay:0.1s">
-      A glimpse inside the workspace, from first signal to submission.
-    </p>
-
-    <div class="shot-tabs anim" role="tablist" aria-label="Product screens" style="animation-delay:0.15s">
-      <button class="shot-tab is-active" role="tab" aria-selected="true" aria-controls="shot-dashboard" id="tab-dashboard" data-shot="dashboard">
-        <span class="shot-tab-label">Dashboard</span>
-        <span class="shot-progress"><i></i></span>
-      </button>
-      <button class="shot-tab" role="tab" aria-selected="false" aria-controls="shot-intelligence" id="tab-intelligence" data-shot="intelligence" tabindex="-1">
-        <span class="shot-tab-label">Intelligence</span>
-        <span class="shot-progress"><i></i></span>
-      </button>
-      <button class="shot-tab" role="tab" aria-selected="false" aria-controls="shot-opportunities" id="tab-opportunities" data-shot="opportunities" tabindex="-1">
-        <span class="shot-tab-label">Opportunities</span>
-        <span class="shot-progress"><i></i></span>
-      </button>
-      <button class="shot-tab" role="tab" aria-selected="false" aria-controls="shot-pipeline" id="tab-pipeline" data-shot="pipeline" tabindex="-1">
-        <span class="shot-tab-label">Pipeline</span>
-        <span class="shot-progress"><i></i></span>
-      </button>
-      <button class="shot-tab" role="tab" aria-selected="false" aria-controls="shot-proposal" id="tab-proposal" data-shot="proposal" tabindex="-1">
-        <span class="shot-tab-label">Proposals</span>
-        <span class="shot-progress"><i></i></span>
-      </button>
-    </div>
-
-    <div class="shot-stage anim" style="animation-delay:0.2s">
-      <div class="shot-frame" aria-live="polite">
-        <div class="shot-chrome">
-          <span></span><span></span><span></span>
-        </div>
-        <div class="shot-screens">
-          <figure class="shot-screen is-active" id="shot-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
-            <img src="assets/showcase/dashboard.jpg?v=20261116x4" alt="The Bidmana dashboard: open opportunities matched to the company, key metrics, deadlines and amendment alerts" loading="lazy" width="2075" height="1210" />
-          </figure>
-          <figure class="shot-screen" id="shot-intelligence" role="tabpanel" aria-labelledby="tab-intelligence" hidden>
-            <img src="assets/showcase/intelligence.jpg?v=20261116x4" alt="Intelligence analytics: win rate, pipeline value and win probability, win rate by agency, pipeline by stage, and predicted versus actual win probability" loading="lazy" width="2075" height="1210" />
-          </figure>
-          <figure class="shot-screen" id="shot-opportunities" role="tabpanel" aria-labelledby="tab-opportunities" hidden>
-            <img src="assets/showcase/opportunities.jpg?v=20261116x4" alt="Opportunity search results with fit scores, estimated values, due dates and one-click add to pipeline" loading="lazy" width="2075" height="1210" />
-          </figure>
-          <figure class="shot-screen" id="shot-pipeline" role="tabpanel" aria-labelledby="tab-pipeline" hidden>
-            <img src="assets/showcase/pipeline.jpg?v=20261116x5" alt="The pipeline board: pursuits moving from Tracking through Qualifying and Pursuing to Proposal, each with its files, win probability and due date" loading="lazy" width="2075" height="1210" />
-          </figure>
-          <figure class="shot-screen" id="shot-proposal" role="tabpanel" aria-labelledby="tab-proposal" hidden>
-            <img src="assets/showcase/proposal.jpg?v=20261116x6" alt="The proposal workspace: the Word-style editor open on a proposal's cover page, with document status and the AI assistant beside it" loading="lazy" width="2880" height="1680" />
-          </figure>
-        </div>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-mark">
+        <div class="ripples" aria-hidden="true"><i></i><i></i><i></i></div>
+        <img src="assets/logo.webp" alt="Bidmana" width="1100" height="825" />
       </div>
+      <h1>The <em>GovCon</em> Ecosystem</h1>
+      <p class="lede">Bring opportunity discovery, capture management, AI-assisted proposals, and expert collaboration into one connected ecosystem.</p>
+      <a href="#request-a-demo" class="btn">Request a Demo</a>
+    </section>
 
-      <div class="shot-notes">
-        <div class="shot-note is-active" data-shot="dashboard">
-          <h3>Your morning in one screen</h3>
-          <p>Open opportunities matched to your profile, pipeline value and win rate, the deadlines coming up, and any amendment that changed a pursuit overnight. Drag the cards into the layout that suits you.</p>
-        </div>
-        <div class="shot-note" data-shot="intelligence" hidden>
-          <h3>Know the odds before you commit</h3>
-          <p>Your own capture record beside market signals: win rate by agency, pipeline by stage, recompetes on the horizon, emerging competitors, and a win probability that is checked against what actually happened.</p>
-        </div>
-        <div class="shot-note" data-shot="opportunities" hidden>
-          <h3>Search that already knows your company</h3>
-          <p>Federal, state and local, SBIR and grant notices in one list, each with a fit score, an estimated value from comparable awards, and the days left to respond. One click adds it to the pipeline.</p>
-        </div>
-        <div class="shot-note" data-shot="pipeline" hidden>
-          <h3>Every pursuit, from first look to proposal</h3>
-          <p>A board that moves each opportunity through Tracking, Qualifying, Pursuing and Proposal, with its documents attached, a scored win probability, the due date, and an amendment flag the moment the notice changes.</p>
-        </div>
-        <div class="shot-note" data-shot="proposal" hidden>
-          <h3>From solicitation to draft, with receipts</h3>
-          <p>The RFP shredded into requirements, a compliance read that shows what is met, and a Word-style editor where every drafted claim is grounded in your past performance. Export when it is ready.</p>
-        </div>
-      </div>
-    </div>
+    <div class="rule"></div>
 
-    <div class="hero-actions" style="justify-content:center; margin-top:2.25rem;">
-      <a href="mailto:contact_us@bidmana.com" class="btn-primary mailto-cta">Request a live walkthrough</a>
-      <a href="platform" class="btn-ghost">Every feature, in detail
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- PROBLEM -->
-  <section class="problem" id="problem">
-    <div class="section-label">The Problem</div>
-    <h2 class="section-title anim">Government proposal development is <em>broken</em></h2>
-    <p class="section-body anim" style="animation-delay:0.1s">
-      Proposal teams aren't losing because they can't write proposals.
-    </p>
-    <p class="section-body anim" style="animation-delay:0.14s">
-      They're losing because they waste time searching for information, recreating content, managing disconnected tools, and coordinating SMEs.
-    </p>
-    <div class="problem-grid">
-      <div class="problem-items">
-        <div class="problem-item anim">
-          <div class="problem-icon">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <!-- EXPERTS + AI -->
+    <section class="center" id="team">
+      <div class="wrap">
+        <div class="team-head reveal">
+          <h2>Human Experts and AI. <em>One Team.</em></h2>
+          <p class="lede">AI handles the volume. Experienced GovCon professionals bring the judgment. Working the same pursuit side by side, they win more.</p>
+        </div>
+        <div class="duo reveal">
+          <div class="side human">
+            <div class="side-top">
+              <div class="people" aria-hidden="true">
+                <span><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+                <span><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+                <span><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+              </div>
+            </div>
+            <h3>GovCon experts</h3>
+            <p>Former Contracting Officers and seasoned professionals you can bring into any pursuit.</p>
+            <ul>
+              <li>Capture strategy and win themes</li>
+              <li>Color team reviews</li>
+              <li>Judgment earned on real pursuits</li>
+            </ul>
           </div>
-          <div><h4>Searching old proposals</h4></div>
-        </div>
-        <div class="problem-item anim" style="animation-delay:0.08s">
-          <div class="problem-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          <div class="plus" aria-hidden="true">+</div>
+          <div class="side ai">
+            <div class="side-top">
+              <span class="orb" style="width:72px;height:72px" aria-hidden="true"><img src="assets/orb-halo.webp" alt=""><img src="assets/orb-plasma.webp" class="spin" alt=""><img src="assets/orb-glass.webp" alt=""></span>
+            </div>
+            <h3>The Oracle</h3>
+            <p>AI that works through the volume in minutes.</p>
+            <ul>
+              <li>Reads every page of the solicitation</li>
+              <li>Drafts from your own past performance</li>
+              <li>Tracks every requirement and deadline</li>
+            </ul>
           </div>
-          <div><h4>Rebuilding compliance matrices</h4></div>
         </div>
-        <div class="problem-item anim" style="animation-delay:0.16s">
-          <div class="problem-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="join reveal" aria-hidden="true"></div>
+        <div class="wins reveal">
+          <strong>More wins.</strong>
+          <p>Stronger proposals, in less time, on the pursuits worth chasing.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="rule"></div>
+
+    <!-- WORKFLOW -->
+    <section id="workflow">
+      <div class="wrap">
+        <div class="flow-head center reveal">
+          <h2>One Pursuit. <em>One Connected Workflow.</em></h2>
+        </div>
+        <ol class="flow reveal">
+          <span class="flow-fill" aria-hidden="true"></span>
+          <span class="flow-pulse" aria-hidden="true"></span>
+          <li class="step" style="--i:0"><div class="step-dot">1</div><h3>Discover opportunities</h3></li>
+          <li class="step" style="--i:1"><div class="step-dot">2</div><h3>Evaluate pursuits</h3></li>
+          <li class="step" style="--i:2"><div class="step-dot">3</div><h3>Organize capture operations</h3></li>
+          <li class="step" style="--i:3"><div class="step-dot">4</div><h3>Build proposals</h3></li>
+          <li class="step" style="--i:4"><div class="step-dot">5</div><h3>Collaborate with experts</h3></li>
+          <li class="step" style="--i:5"><div class="step-dot">6</div><h3>Submit with confidence</h3></li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="rule"></div>
+
+    <!-- ORACLE -->
+    <section class="oracle" id="oracle">
+      <div class="wrap">
+        <div class="oracle-head reveal">
+          <h2>Meet the <em>Oracle</em></h2>
+          <p class="lede">Your AI assistant within the Bidmana ecosystem.</p>
+        </div>
+        <div class="oracle-grid">
+        <div class="oracle-left reveal">
+          <div class="caps">
+            <div class="cap">
+              <h3>It knows the proposal in front of you</h3>
+              <p>Ask about strategy, win themes or any section, and get an answer drawn from your own documents.</p>
+            </div>
+            <div class="cap">
+              <h3>You choose what it looks at</h3>
+              <p>Point it at the sections that matter and every answer stays on them.</p>
+            </div>
+            <div class="cap">
+              <h3>It sits beside your draft</h3>
+              <p>No second tool and no copy and paste. The Oracle is one tab away while you write.</p>
+            </div>
           </div>
-          <div><h4>Chasing SMEs</h4></div>
-        </div>
-        <div class="problem-item anim" style="animation-delay:0.24s">
-          <div class="problem-icon">
-            <svg viewBox="0 0 24 24"><path d="M8 2h8l4 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M14 2v5h5"/></svg>
+          <div>
+          <p class="asks-label">See it answer</p>
+          <div class="asks">
+            <button class="ask" aria-pressed="false" data-a="Lead with three: a transition with no gap in service, your record on similar modernization work, and key personnel who are already cleared. Each one maps to an evaluation factor."><span>What win themes should lead our technical approach?</span><i></i></button>
+            <button class="ask" aria-pressed="false" data-a="Almost. Two requirements have no response yet: the staffing plan and the quality control approach. Everything else in the section is covered."><span>Does Section 3 answer every requirement?</span><i></i></button>
+            <button class="ask" aria-pressed="false" data-a="Stress what an incumbent cannot claim: a fresh team, a lower-risk transition plan, and measured results from your two most similar contracts."><span>How do we stand out against the incumbent?</span><i></i></button>
           </div>
-          <div><h4>Managing disconnected Word, Excel &amp; SharePoint files</h4></div>
-        </div>
-        <div class="problem-item anim" style="animation-delay:0.32s">
-          <div class="problem-icon">
-            <svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.75V17h8v-2.25A7 7 0 0 0 12 2z"/></svg>
           </div>
-          <div><h4>Losing institutional knowledge</h4></div>
+        </div>
+
+        <div class="mock reveal" data-state="idle" aria-hidden="true">
+          <div class="mock-tabs">
+            <div class="mock-tab">Sections</div>
+            <div class="mock-tab">Compliance</div>
+            <div class="mock-tab">Win strategy</div>
+            <div class="mock-tab on"><span class="orb" style="width:16px;height:16px"><img src="assets/orb-halo.webp" alt=""><img src="assets/orb-plasma.webp" alt=""><img src="assets/orb-glass.webp" alt=""></span>Ask the Oracle</div>
+          </div>
+          <div class="mock-main">
+            <div class="scene scene-idle">
+              <span class="orb" style="width:210px;height:210px"><img src="assets/orb-halo.webp" alt=""><img src="assets/orb-plasma.webp" class="spin" alt=""><img src="assets/orb-glass.webp" alt=""></span>
+              <h4>Ask the Oracle</h4>
+              <p>Ask about proposal strategy, win themes, or section content.</p>
+            </div>
+            <div class="scene scene-chat">
+              <div class="bubble me"></div>
+              <div class="turn think">
+                <span class="orb" style="width:120px;height:120px"><img src="assets/orb-halo.webp" class="pulse" alt=""><img src="assets/orb-plasma.webp" class="spin fast" alt=""><img src="assets/orb-glass.webp" alt=""></span>
+                <span>Thinking<span class="dots"></span></span>
+              </div>
+              <div class="turn answer">
+                <span class="orb" style="width:40px;height:40px"><img src="assets/orb-halo.webp" alt=""><img src="assets/orb-plasma.webp" alt=""><img src="assets/orb-glass.webp" alt=""></span>
+                <div class="bubble it"></div>
+              </div>
+            </div>
+            <div class="composer"><div>Ask the Oracle…</div></div>
+          </div>
+        </div>
         </div>
       </div>
-      <div class="problem-stat-block anim" style="animation-delay:0.1s">
-        <div class="stat-card">
-          <div class="stat-num">40%</div>
-          <div class="stat-label">Of proposal labor cost is low value coordination and administrative overhead</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">3×</div>
-          <div class="stat-label">Growth in proposal complexity over the past decade as federal requirements expand</div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="divider"></div>
+    <div class="rule"></div>
 
-  <!-- WHAT'S INSIDE -->
-  <section id="solution">
-    <div class="section-label">The Solution</div>
-    <h2 class="section-title anim">One platform from <em>first signal to submission</em></h2>
-    <p class="section-body anim" style="animation-delay:0.1s">
-      Bidmana replaces the patchwork of search portals, spreadsheets, shared drives, and outside help with a single workspace built for how government pursuits actually run.
-    </p>
-    <div class="solution-grid anim" style="animation-delay:0.15s">
-      <a class="sol-card" href="platform#opportunities">
-        <div class="sol-num">01</div>
-        <h3>Opportunities</h3>
-        <p>Federal notices, state and local bids from all 50 states and DC, SBIR/STTR topics, and federal grants, matched to your NAICS codes, set-asides, and capabilities.</p>
-        <span class="sol-more">See how it works →</span>
-      </a>
-      <a class="sol-card" href="platform#capture">
-        <div class="sol-num">02</div>
-        <h3>Pipeline &amp; Capture</h3>
-        <p>Track every pursuit with roles, contacts, amendment impacts, price-to-win analysis, win strategy, and a calendar tied to your Outlook or Google account.</p>
-        <span class="sol-more">See how it works →</span>
-      </a>
-      <a class="sol-card" href="platform#proposals">
-        <div class="sol-num">03</div>
-        <h3>Proposal Workspace</h3>
-        <p>Shred the RFP, build the compliance matrix, and draft sections grounded in your own past performance with a citation behind every claim.</p>
-        <span class="sol-more">See how it works →</span>
-      </a>
-      <a class="sol-card" href="intelligence">
-        <div class="sol-num">04</div>
-        <h3>Market Intelligence</h3>
-        <p>Recompete radar, emerging competitors, competitor landscape briefs, award history, and calibrated win probability before you commit resources.</p>
-        <span class="sol-more">Explore intelligence →</span>
-      </a>
-      <a class="sol-card" href="consultants">
-        <div class="sol-num">05</div>
-        <h3>Expert Consultants</h3>
-        <p>Experienced GovCon professionals you can engage inside the platform, from capture planning through color reviews, with hours and invoices handled for you.</p>
-        <span class="sol-more">Meet the consultants →</span>
-      </a>
-      <a class="sol-card" href="link">
-        <div class="sol-num">06</div>
-        <h3>Bidmana Link</h3>
-        <span class="status-pill">Growing Network</span>
-        <p>Find teaming partners by capability, NAICS code, and certification, then engage them without leaving the pursuit you are working.</p>
-        <span class="sol-more">Find partners →</span>
-      </a>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- TRUST -->
-  <section class="tight" id="trust">
-    <div class="section-label">Built for Regulated Work</div>
-    <h2 class="section-title anim">Your data stays <em>yours</em></h2>
-    <p class="section-body anim" style="animation-delay:0.1s">
-      Bidmana is designed for contractors who handle sensitive and controlled information. The platform runs inside a Google Cloud Assured Workloads environment and your documents never leave the systems you already trust.
-    </p>
-    <div class="trust-strip anim" style="animation-delay:0.15s">
-      <div class="trust-item">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <div>
-          <h4>Assured Workloads hosting</h4>
-          <p>US-only regions with the FedRAMP Moderate control package applied to every service Bidmana runs on.</p>
+    <!-- ECOSYSTEM -->
+    <section class="eco center" id="ecosystem">
+      <div class="wrap">
+        <h2 class="reveal">More Than Another <em>GovCon Tool.</em></h2>
+        <div class="ring reveal">
+          <ul class="orbit">
+            <li style="--x:50%;--y:0%"><span>Intelligence</span></li>
+            <li style="--x:93.3%;--y:25%"><span>Capture</span></li>
+            <li style="--x:93.3%;--y:75%"><span>Proposals</span></li>
+            <li style="--x:50%;--y:100%"><span>Knowledge</span></li>
+            <li style="--x:6.7%;--y:75%"><span>Expertise</span></li>
+            <li style="--x:6.7%;--y:25%"><span>Teaming</span></li>
+          </ul>
+          <div class="ring-core"><p>One <em>ecosystem.</em></p></div>
         </div>
       </div>
-      <div class="trust-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <div>
-          <h4>AI inside the boundary</h4>
-          <p>AI runs within the same cloud boundary. Your content is never used to train models.</p>
-        </div>
-      </div>
-      <div class="trust-item">
-        <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        <div>
-          <h4>Documents stay in your store</h4>
-          <p>Proposals and libraries live in your SharePoint, OneDrive, Google Drive, or a folder on your computer.</p>
-        </div>
-      </div>
-      <div class="trust-item">
-        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-        <div>
-          <h4>Isolated by company</h4>
-          <p>Multi-factor sign-in, per-company data isolation enforced in the database, malware scanning, and a tamper-evident audit log.</p>
-        </div>
-      </div>
-    </div>
-    <div class="hero-actions" style="justify-content:flex-start; margin-top:2rem;">
-      <a href="platform#security" class="btn-ghost">Security details
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <!-- VISION BAND -->
-  <div class="vision-band">
-    <div class="section-label">Product Vision</div>
-    <div class="vision-quote anim">
-      The <em>GovCon</em> Ecosystem
-    </div>
-  </div>
+    <!-- DEMO -->
+    <section class="demo" id="request-a-demo">
+      <div class="demo-card reveal">
+        <h2>Request a <em>Demo</em></h2>
+        <p class="lede">See the Bidmana ecosystem in action.</p>
+        <a href="mailto:contact_us@bidmana.com" class="btn">Request a Demo</a>
+      </div>
+    </section>
+  </main>
 
-  <!-- CTA -->
-  <section class="cta-section" id="contact">
-    <div class="section-label">Get Early Access</div>
-    <h2 class="section-title anim">See what Bidmana<br /><em>can do for you</em></h2>
-    <p class="section-body anim" style="animation-delay:0.1s">
-      Bidmana is onboarding a select group of federal contractor partners. If you're building a proposal team that wants to win more, reach out. A Bidmana consultant will respond directly.
-    </p>
-    <div class="cta-actions anim" style="animation-delay:0.2s">
-      <a href="mailto:contact_us@bidmana.com" class="btn-primary mailto-cta">Request a Demo</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
   <footer>
-    <div class="footer-inner">
-      <a href="./" class="footer-brand">Bidmana</a>
-      <ul class="footer-links">
+    <div class="foot">
+      <span>© 2026 Bidmana LLC. All rights reserved.</span>
+      <ul>
         <li><a href="platform">Platform</a></li>
         <li><a href="intelligence">Intelligence</a></li>
         <li><a href="consultants">Consultants</a></li>
         <li><a href="link">Bidmana Link</a></li>
         <li><a href="compare">Compare</a></li>
         <li><a href="about">About</a></li>
-        <li><a href="mailto:contact_us@bidmana.com" class="mailto-cta">Contact</a></li>
       </ul>
-      <span class="footer-copy">© 2026 Bidmana LLC. All rights reserved.</span>
     </div>
   </footer>
 
-  <script src="assets/site.js?v=20261116c"></script>
+
+
+  <script>
+    (function () {
+      document.documentElement.classList.add('js');
+
+      // Reveal on scroll
+      var items = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.15 });
+        items.forEach(function (el) { io.observe(el); });
+      } else {
+        items.forEach(function (el) { el.classList.add('in'); });
+      }
+
+      // The Oracle mock: the orb waits, then each question plays (asked, thinking, answered).
+      // A click on a question plays that one.
+      var mock = document.querySelector('.mock');
+      var asks = Array.prototype.slice.call(document.querySelectorAll('.ask'));
+      var qEl = mock.querySelector('.bubble.me'), aEl = mock.querySelector('.bubble.it');
+      var THINK = 1900, READ = 5600, timers = [], at = 0;
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+      function play(i) {
+        timers.forEach(clearTimeout); timers = [];
+        at = i;
+        asks.forEach(function (b, n) {
+          b.classList.remove('on');
+          b.setAttribute('aria-pressed', n === i ? 'true' : 'false');
+        });
+        void asks[i].offsetWidth; // restart the progress line
+        asks[i].classList.add('on');
+        qEl.textContent = asks[i].querySelector('span').textContent;
+        aEl.textContent = asks[i].dataset.a;
+        if (still) { mock.dataset.state = 'responding'; return; }
+        mock.dataset.state = 'idle';
+        void mock.offsetWidth;
+        mock.dataset.state = 'thinking';
+        later(function () { mock.dataset.state = 'responding'; }, THINK);
+        later(function () { play((at + 1) % asks.length); }, THINK + READ);
+      }
+      asks.forEach(function (b, i) { b.addEventListener('click', function () { play(i); }); });
+      if (still) play(0); else later(function () { play(0); }, 2600);
+    })();
+  </script>
 </body>
 </html>
